@@ -1,0 +1,15 @@
+Package: semTable 
+Type: Package
+Title: Structural Equation Modeling Tables 
+Version: 1.0
+Date: 2017-12-13
+Authors@R: c(person("Paul","Johnson",email="pauljohn@ku.edu",role = c("aut", "cre")),
+		   person("Benjamin","Kite",email="bakite@ku.edu",role="aut"))
+Maintainer: Paul Johnson <pauljohn@ku.edu>
+Description: Structural Equation Modeling tables. 
+License: GPL-2
+Depends: R (>= 3.0)
+Imports: stats, utils, methods, foreign, kutils, xtable, lavaan, plyr
+Suggests: rockchalk
+RoxygenNote: 6.0.1
+LazyData: TRUE
