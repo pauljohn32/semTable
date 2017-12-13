@@ -127,6 +127,7 @@
 ##'     \code{c("*", "**", "***")}.
 ##' @importFrom stats pnorm
 ##' @importFrom kutils checkCoercion
+##' @importFrom kutils modifyVector
 ##' @importFrom lavaan lavInspect
 ##' @return Markup for SEM table, or a list of markup character
 ##'     strings, one for each value of \code{type}.
@@ -1078,6 +1079,7 @@ NULL
 ##' @param longtable should a tabular or a longtable object be created?
 ##' @param file A file stub, to which ".tex", ".html", or ".csv" can be added
 ##' @param columns For SEM table, the list of columns objects
+##' @importFrom kutils mgsub
 ##' @return a list of marked up character objects
 ##' @author Paul Johnson
 markupConvert <- function(marked, type = c("latex", "html", "csv"),

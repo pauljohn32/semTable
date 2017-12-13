@@ -48,35 +48,34 @@ detectNested <- function(models){
 
 ##' Compare CFA Tables
 ##'
-##' @title compareCFA
-##' @param models list of lavaan cfa models to be compared. The models
-##'     can be named in the elements of the list.
+##' @param models list of lavaan cfa models. The models should be
+##'     named so as to refer to them in other arguments.
 ##' @param fitmeas vector of fit measures on which to compare the
 ##'     models. By default, fitmeas = c("chisq", "df", "pvalue",
 ##'     "rmsea", "cfi", "tli", "srmr", "aic", "bic", "srmr", "aic",
-##'     "bic", "srmr_mplus").  Fit measures that are request but not
-##'     found are ignored.
+##'     "bic", "srmr_mplus").  Fit measures that are requested but not
+##'     found within the objects are ignored.
 ##' @param nesting character string indicating the nesting structure
-##'     of the models.  Must only contain model names, ">", and "+"
-##'     separated by spaces.  The model to the left of a ">" is the
-##'     parent model for all models to the right of the same ">", up
-##'     until another ">" is reached. When multiple models are nested
-##'     in the same parent, they are separated by a "+".
-##' @param scaled should scaled versions of the fit measures requested
-##'     be used if available?  The scaled statistic is determined by
-##'     the model estimation method.  The defaul value is TRUE.
+##'     of the models.  Must only contain model names and the symbols
+##'     ">" and "+" (separated by spaces).  The parent model should be
+##'     on the left, separated by ">". When multiple models are nested
+##'     in the same parent, they are separated by the "+" sign. Please
+##'     see examples.
+##' @param scaled should scaled versions of the fit measures will be
+##'     returned.  The defaul value is TRUE.
 ##' @param chidif should the nested models be compared by using the
 ##'     anova function? The anova function may pass the model
 ##'     comparison on to another lavaan function.  The results are
 ##'     added to the last three columns of the comparison table. The
 ##'     default value is TRUE.
-##' @param file Default is NULL, no file created. If output file is desired,
-##'     provide a character string for the file name.
+##' @param file Default is NULL, no file created. If output file is
+##'     desired, provide a character string for the file name.
 ##' @author Ben Kite
 ##' @export
 ##' @importFrom stats anova update
 ##' @importFrom plyr mapvalues
 ##' @importFrom xtable xtable
+##' @importFrom kutils mgsub
 ##' @examples
 ##' \donttest{
 ##' ## These run longer than 5 seconds
@@ -88,8 +87,8 @@ detectNested <- function(models){
 ##' genmodel2 <- "f1 =~ .7*v1 + .7*v2 + .7*v3 + .7*v4 + .7*v5 + .2*v6
 ##' f1 ~~ 1*f1"
 ##'
-##' dat1 <- simulateData(genmodel, sample.nobs = 300)
-##' dat2 <- simulateData(genmodel2, sample.nobs = 300)
+##' dat1 <- simulateData(genmodel, sample.nobs=300)
+##' dat2 <- simulateData(genmodel2, sample.nobs=300)
 ##' dat1$group <- 0
 ##' dat2$group <- 1
 ##' dat <- rbind(dat1, dat2)
@@ -125,23 +124,23 @@ detectNested <- function(models){
 ##'     		  v5 ~ c(I5,I5)*1
 ##'     		  v6 ~ c(I6,I6)*1
 ##'     		"
-##' cc1 <- cfa(congModel, data=dat, group="group", meanstructure=TRUE, estimator = "MLR")
-##' cc2 <- cfa(weakModel, data=dat, group="group", meanstructure=TRUE, estimator = "MLR")
-##' cc21 <- cfa(partialweakModel, data=dat, group="group", meanstructure=TRUE, estimator = "MLR")
-##' cc3 <- cfa(partialstrongModel1, data=dat, group="group", meanstructure=TRUE, estimator = "MLR")
+##' cc1 <- cfa(congModel, data=dat, group="group", meanstructure=TRUE, estimator="MLR")
+##' cc2 <- cfa(weakModel, data=dat, group="group", meanstructure=TRUE, estimator="MLR")
+##' cc21 <- cfa(partialweakModel, data=dat, group="group", meanstructure=TRUE, estimator="MLR")
+##' cc3 <- cfa(partialstrongModel1, data=dat, group="group", meanstructure=TRUE, estimator="MLR")
 ##'
 ##' models <- list(cc1, cc2, cc21, cc3)
-##' compareCFA(models, nesting = NULL)
+##' compareCFA(models, nesting=NULL)
 ##'
-##' models <- list("Configural" = cc1, "Metric" = cc2, "PartialMetric" = cc21, "Scalar" = cc3)
+##' models <- list(Configural=cc1, Metric=cc2, PartialMetric=cc21, Scalar=cc3)
 ##' compareCFA(models, nesting = "Configural > Metric + PartialMetric > Scalar")
 ##'
 ##' compareCFA(models, fitmeas = c("chisq", "df", "cfi", "rmsea", "tli"),
 ##' nesting = "Configural > Metric + PartialMetric > Scalar")
 ##'
 ##' ## Creates output file
-##' ## compareCFA(models, fitmeas = c("chisq", "df", "cfi", "rmsea", "tli"),
-##' ## nesting = "Configural > Metric + PartialMetric > Scalar", file = "table.tex")
+##' ## compareCFA(models, fitmeas=c("chisq", "df", "cfi", "rmsea", "tli"),
+##' ## nesting = "Configural > Metric + PartialMetric > Scalar", file="table.tex")
 ##' }
 compareCFA <- function(models,
                        fitmeas = c("chisq", "df",  "pvalue", "rmsea", "cfi", "tli", "srmr", "aic", "bic"),
@@ -225,7 +224,6 @@ compareCFA <- function(models,
             texcode <- paste0(texcode, "\n", paste0(output[[2]], collapse = ", "), "\n\n")
         }
         write(texcode, file = file)
-        
     }
     if(!is.null(file)){
         cat(texcode)
