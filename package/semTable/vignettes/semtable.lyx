@@ -513,9 +513,27 @@ status open
 
 \end_inset
 
- (2019).
- This essay discusses the usage of the semTable function and provides a
- profuse collection of output examples.
+ 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "Rosseel-2012"
+literal "false"
+
+\end_inset
+
+.
+ This essay discusses the usage of the 
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+\noindent
+semTable
+\end_layout
+
+\end_inset
+
+ function and provides a profuse collection of output examples.
  
 \end_layout
 
@@ -674,15 +692,7 @@ pretty names
 status open
 
 \begin_layout Plain Layout
-list(
-\begin_inset Quotes eld
-\end_inset
-
-Model A
-\begin_inset Quotes erd
-\end_inset
-
- = obj1,
+list("Model A" = obj1,
 \end_layout
 
 \end_inset
@@ -692,14 +702,7 @@ Model A
 status open
 
 \begin_layout Plain Layout
-\begin_inset Quotes eld
-\end_inset
-
-Model B
-\begin_inset Quotes erd
-\end_inset
-
- = obj2)
+"Model B" = obj2)
 \end_layout
 
 \end_inset
@@ -831,14 +834,7 @@ status open
 status open
 
 \begin_layout Plain Layout
-\begin_inset Quotes eld
-\end_inset
-
-all
-\begin_inset Quotes erd
-\end_inset
-
-
+"all"
 \end_layout
 
 \end_inset
@@ -932,11 +928,7 @@ tighten up
 status open
 
 \begin_layout Plain Layout
-c(
-\begin_inset Quotes eld
-\end_inset
-
-est",
+c("est",
 \end_layout
 
 \end_inset
@@ -1137,7 +1129,7 @@ rsquare = "R Square"
 status open
 
 \begin_layout Plain Layout
-estse = "Estimate(Std.Err.")
+estse = "Estimate(Std.Err.)"
 \end_layout
 
 \end_inset
@@ -1178,31 +1170,7 @@ new.pretty.name
 \end_layout
 
 \begin_layout Description
-type: Can be 
-\begin_inset Quotes eld
-\end_inset
-
-latex
-\begin_inset Quotes erd
-\end_inset
-
-, 
-\begin_inset Quotes eld
-\end_inset
-
-html
-\begin_inset Quotes erd
-\end_inset
-
- or 
-\begin_inset Quotes eld
-\end_inset
-
-csv
-\begin_inset Quotes erd
-\end_inset
-
-.
+type: Can be "latex", "html" or "csv".
  If a table object is created with one format in mind, the object can be
  re-designated to a new format.
  See examples in 
@@ -1251,23 +1219,17 @@ label: label to be used for internal cross-referencing.
 \end_layout
 
 \begin_layout Description
-centering: One of these c(
-\begin_inset Quotes eld
+centering: One of these 
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+c("siunitx", "none")
+\end_layout
+
 \end_inset
 
-siunitx
-\begin_inset Quotes erd
-\end_inset
-
-, 
-\begin_inset Quotes eld
-\end_inset
-
-none
-\begin_inset Quotes erd
-\end_inset
-
-).
+.
 \end_layout
 
 \end_deeper
@@ -1280,40 +1242,77 @@ alpha: The levels of statistical significance to be used for assigning starts
 \begin_layout Description
 file: This is a convenience function to save the results in a separate file.
  It will add suffix 
-\begin_inset Quotes eld
-\end_inset
+\begin_inset Flex Code
+status open
 
-.tex
-\begin_inset Quotes erd
+\begin_layout Plain Layout
+".tex"
+\end_layout
+
 \end_inset
 
 , 
-\begin_inset Quotes eld
-\end_inset
+\begin_inset Flex Code
+status open
 
-.html
-\begin_inset Quotes erd
+\begin_layout Plain Layout
+".html"
+\end_layout
+
 \end_inset
 
 , or 
-\begin_inset Quotes eld
-\end_inset
+\begin_inset Flex Code
+status open
 
-.csv
-\begin_inset Quotes erd
+\begin_layout Plain Layout
+".csv"
+\end_layout
+
 \end_inset
 
 , depending on the value of type.
- This is the same as fitting a model with print.results = FALSE and then
- running cat(object, file= 
-\begin_inset Quotes eld
+ This is the same as fitting a model with 
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+print.results = FALSE
+\end_layout
+
 \end_inset
 
-fn
-\begin_inset Quotes erd
+, then 
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+semTable
+\end_layout
+
 \end_inset
 
-) to save the result object in a file.
+ to produce 
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+object.tbl
+\end_layout
+
+\end_inset
+
+, and then running 
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+cat(object.tbl, file= "fn")
+\end_layout
+
+\end_inset
+
+ to save the result object in a file.
 \end_layout
 
 \begin_layout Standard
@@ -1495,24 +1494,38 @@ pretty
  In this case, we create a vector of labels first, and then put it to use.
  To prevent the table from becoming too wide, we ask for two columns in
  the output, 
-\begin_inset Quotes eld
-\end_inset
+\begin_inset Flex Code
+status open
 
-estse
-\begin_inset Quotes erd
+\begin_layout Plain Layout
+"estse"
+\end_layout
+
 \end_inset
 
  and 
-\begin_inset Quotes eld
-\end_inset
+\begin_inset Flex Code
+status open
 
-p
-\begin_inset Quotes erd
+\begin_layout Plain Layout
+"p"
+\end_layout
+
 \end_inset
 
 .
- The default semTable input would include a larger set of parameters, but
- we don't need all of them.
+ The default 
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+semTable
+\end_layout
+
+\end_inset
+
+ input would include a larger set of parameters, but we don't need all of
+ them.
  The default table includes latent intercepts and latent variances, which
  are restricted to 0 and 1 by the model itself, so it is not necessary to
  include them.
@@ -1690,8 +1703,18 @@ tab:HS10
 \end_layout
 
 \begin_layout Standard
-Because we have longtable set as TRUE, a floating table is created with
- the indicated caption in Table 
+Because we have 
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+longtable
+\end_layout
+
+\end_inset
+
+ set as TRUE, a floating table is created with the indicated caption in
+ Table 
 \begin_inset ERT
 status open
 
@@ -1715,7 +1738,17 @@ In the previous example, we allowed the LaTeX markup to be printed directly
 \begin_inset Quotes eld
 \end_inset
 
+
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
 print.results = FALSE
+\end_layout
+
+\end_inset
+
+
 \begin_inset Quotes erd
 \end_inset
 
@@ -1790,7 +1823,16 @@ cat(fit1.t1, file = fn)
 \end_layout
 
 \begin_layout Standard
-This is the same result obtained by specifying file name in the semTable
+This is the same result obtained by specifying file name in the 
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+semTable
+\end_layout
+
+\end_inset
+
  function itself.
  However, this latter approach leaves the door open for the user to inspect
  & edit the marked-up table.
@@ -1804,20 +1846,24 @@ Alternative Output Formats
 This function was developed primarily for LaTeX output tables.
  However, we have redesigned so that the output may be requested in either
  Web code (HTML) or comma separated variable (CSV) files.
- If HTML output is desired, replace type = 
-\begin_inset Quotes eld
+ If HTML output is desired, replace 
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+type = "latex"
+\end_layout
+
 \end_inset
 
-latex
-\begin_inset Quotes erd
-\end_inset
+ with 
+\begin_inset Flex Code
+status open
 
- with type = 
-\begin_inset Quotes eld
-\end_inset
+\begin_layout Plain Layout
+type = "html"
+\end_layout
 
-html
-\begin_inset Quotes erd
 \end_inset
 
 .
@@ -1969,7 +2015,17 @@ attr(fit1.t1c, "file")
 \end_layout
 
 \begin_layout Standard
-It is possible to change the output format of an semTable object.
+It is possible to change the output format of an 
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+semTable
+\end_layout
+
+\end_inset
+
+ object.
  This is done with the function 
 \begin_inset Flex Code
 status open
@@ -1981,7 +2037,7 @@ markupConvert
 \end_inset
 
 .
- Here we demonstrate how to re-channel a LaTeX fitted table to a csv object
+ Here we demonstrate how to re-channel a LaTeX fitted table to a csv object:
 \end_layout
 
 \begin_layout Standard
@@ -2024,17 +2080,36 @@ floating
 \end_inset
 
  table objects.
- The author has a choice to ask semTable to create the floating table object
- (with indicated caption and label), or to simply create the tabular object
- that would be included inside the floated table in a following setup.
+ The author has a choice to ask 
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+semTable
+\end_layout
+
+\end_inset
+
+ to create the floating table object (with indicated caption and label),
+ or to simply create the tabular object that would be included inside the
+ floated table in a following setup.
  The quick, easy method of specifying the floating table elements in the
  semTable command itself does not allow all of the flexibility that we might
  want in controlling table output, so we'll illustrate both methods.
 \end_layout
 
 \begin_layout Standard
-First, we have an ordinary table (not a longtable) that is created as a
- float by the the reference label 
+First, we have an ordinary table (not a 
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+longtable
+\end_layout
+
+\end_inset
+
+) that is created as a float by the the reference label 
 \begin_inset Quotes eld
 \end_inset
 
@@ -2119,10 +2194,30 @@ ref{tab:fit1.t4}
 
 \end_inset
 
-, we have a similar table produced with the longtable class.
+, we have a similar table produced with the 
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+longtable
+\end_layout
+
+\end_inset
+
+ class.
  We have tested some alternative settings for the columns (just to keep
  this interesting for the reader).
- Of course, the benefit of a longtable is that a table that needs to 
+ Of course, the benefit of a 
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+longtable
+\end_layout
+
+\end_inset
+
+ is that a table that needs to 
 \begin_inset Quotes eld
 \end_inset
 
@@ -2130,10 +2225,51 @@ break
 \begin_inset Quotes erd
 \end_inset
 
- across pages will do so, while an ordinary table will run into the margins.
+ across pages will do so, while an ordinary 
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+tabular
+\end_layout
+
+\end_inset
+
+ will run into the bottom margin.
  In this case, with a loadings-only display, the table stays on the page
- and the longtable is not strictly necessary.
- However, the longtable also does not appear to be harmful to the purpose.
+ and the 
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+longtable
+\end_layout
+
+\end_inset
+
+ is not strictly necessary.
+ However, the 
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+longtable
+\end_layout
+
+\end_inset
+
+ also does not appear to be harmful even for small tables.
+ Hence, we use 
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+longtable = TRUE
+\end_layout
+
+\end_inset
+
+ in most of our work.
 \end_layout
 
 \begin_layout Standard
@@ -2182,7 +2318,17 @@ As an alternative, in the following code we do not request a float to be
 \begin_inset Quotes eld
 \end_inset
 
+
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
 tmpout/fit1.t5.tex
+\end_layout
+
+\end_inset
+
+
 \begin_inset Quotes erd
 \end_inset
 
@@ -2201,7 +2347,25 @@ ref{tab:fit1.t5}
 \end_inset
 
 .
+ After creating the floating table, inside it we simply use the LaTeX code
  
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+input{tmpout/fit1.t5.tex}.
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -2557,7 +2721,17 @@ ref{tab:fit1.gt1}
 \end_inset
 
 .
- This table runs into the margins unless we specify longtable = TRUE.
+ This table runs into the margins unless we specify 
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+longtable = TRUE
+\end_layout
+
+\end_inset
+
+.
  Also it is worth noting that the table does not fit within the allowed
  horizontal space if we try to print the 4 standard columns individually.
  Hence, we use the more compact 
@@ -4037,13 +4211,32 @@ tab:fit5.5b
 
 \end_layout
 
-\begin_layout Standard
+\begin_layout Section
 Conclusion
 \end_layout
 
 \begin_layout Standard
-The semTable function is, to our knowledge, the first effort successful
- effort to create a flexible function to present various kinds of lavaan
+The 
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+semTable
+\end_layout
+
+\end_inset
+
+ function is, to our knowledge, the first effort successful effort to create
+ a flexible function to present various kinds of 
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+lavaan
+\end_layout
+
+\end_inset
+
  estimates of confirmatory factor analyses and structural equation models.
  This version includes the ability of authors to select parameter sets,
  output columns, fit indices, as well as to customize many of the labels.
@@ -4052,8 +4245,17 @@ The semTable function is, to our knowledge, the first effort successful
 
 \begin_layout Standard
 This document is not intended as a lesson in structural equation modeling.
- Instead, we offer it as evidence that the semTable function does work,
- as promised, for a wide variety of contexts.
+ Instead, we offer it as evidence that the 
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+semTable
+\end_layout
+
+\end_inset
+
+ function does work, as promised, for a wide variety of contexts.
 \end_layout
 
 \begin_layout Standard
