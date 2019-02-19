@@ -1,0 +1,3484 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass extarticle
+\begin_preamble
+% Following comment is required. Do not delete it.
+%\usepackage{Sweave}
+
+\usepackage[includehead,includefoot]{geometry}
+\geometry{
+lmargin=1in,
+rmargin=1in,
+tmargin=0.75in,
+bmargin=1.0in,
+headheight=0pt,
+headsep=0pt,
+marginparwidth=0pt,
+footskip=1.5\baselineskip,
+}
+
+\usepackage{booktabs}
+\usepackage{dcolumn}
+\usepackage{longtable}
+\usepackage{siunitx}
+
+\input{theme/guidePreambleHeader.tex}
+\input{theme/preambleFooter.tex}
+\input{theme/guidePreambleSweavel.tex}
+\end_preamble
+\use_default_options false
+\begin_modules
+logicalmkup
+sweave
+\end_modules
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding utf8
+\fontencoding global
+\font_roman "lmodern" "default"
+\font_sans "lmss" "default"
+\font_typewriter "lmtt" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize 11
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks false
+\pdf_pdfborder false
+\pdf_colorlinks false
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize letterpaper
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 0
+\use_package esint 1
+\use_package mathdots 0
+\use_package mathtools 0
+\use_package mhchem 0
+\use_package stackrel 0
+\use_package stmaryrd 0
+\use_package undertilde 0
+\cite_engine natbib
+\cite_engine_type authoryear
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date true
+\justification true
+\use_refstyle 0
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 1in
+\topmargin 1in
+\rightmargin 1in
+\bottommargin 1in
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation skip
+\defskip medskip
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+%% Fill in values of the arguments here, 
+\end_layout
+
+\begin_layout Plain Layout
+
+%% If blanks are needed, insert tilde " ~ " to make sure they are respected
+\end_layout
+
+\begin_layout Plain Layout
+
+%% If comma needed inside a value, wrap in {}.
+\end_layout
+
+\begin_layout Plain Layout
+
+%% Delete secondauthor and thirdauthor if not needed
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+guidesetup{%
+\end_layout
+
+\begin_layout Plain Layout
+
+  author={
+\end_layout
+
+\begin_layout Plain Layout
+
+    lastname=Johnson, 
+\end_layout
+
+\begin_layout Plain Layout
+
+    firstname=Paul~E., 
+\end_layout
+
+\begin_layout Plain Layout
+
+    affiliation=CRMDA{, University of Kansas},
+\end_layout
+
+\begin_layout Plain Layout
+
+    email=pauljohn@ku.edu},
+\end_layout
+
+\begin_layout Plain Layout
+
+  author={
+\end_layout
+
+\begin_layout Plain Layout
+
+    lastname=Kite, 
+\end_layout
+
+\begin_layout Plain Layout
+
+    firstname=Benjamin, 
+\end_layout
+
+\begin_layout Plain Layout
+
+    affiliation=CRMDA and H
+\backslash
+&R Block, 
+\end_layout
+
+\begin_layout Plain Layout
+
+    email=bakite@ku.edu}, 
+\end_layout
+
+\begin_layout Plain Layout
+
+  url={https://crmda.ku.edu/guides},
+\end_layout
+
+\begin_layout Plain Layout
+
+  keywords={Structural Equation Models, LaTeX Tables, HTML Tables},
+\end_layout
+
+\begin_layout Plain Layout
+
+  title={SEM Tables with the semTable package for R},
+\end_layout
+
+\begin_layout Plain Layout
+
+  leftlogo={theme/logoleft.pdf},
+\end_layout
+
+\begin_layout Plain Layout
+
+  rightlogo={theme/logo-vert.pdf},
+\end_layout
+
+\begin_layout Plain Layout
+
+  number=0,
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+guidehdr
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+input{addressFooter.tex}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+% Please leave this code
+\end_layout
+
+\begin_layout Plain Layout
+
+<<ignoremeRsetup, echo=FALSE, include=FALSE, results=hide>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+tdir <- 
+\begin_inset Quotes eld
+\end_inset
+
+tmpout
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+if(!dir.exists(tdir)) dir.create(tdir, showWarnings=FALSE)
+\end_layout
+
+\begin_layout Plain Layout
+
+library(stationery)
+\end_layout
+
+\begin_layout Plain Layout
+
+opts.orig <- options()
+\end_layout
+
+\begin_layout Plain Layout
+
+options(width=80, prompt=" ", continue="  ")
+\end_layout
+
+\begin_layout Plain Layout
+
+options(useFancyQuotes = FALSE) 
+\end_layout
+
+\begin_layout Plain Layout
+
+set.seed(12345)
+\end_layout
+
+\begin_layout Plain Layout
+
+par.orig <- par(no.readonly=TRUE)
+\end_layout
+
+\begin_layout Plain Layout
+
+options(SweaveHooks=list(fig=function() par(ps=10)))
+\end_layout
+
+\begin_layout Plain Layout
+
+pdf.options(onefile=FALSE,family="Times",pointsize=10)
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+fvset{listparameters={
+\backslash
+setlength{
+\backslash
+topsep}{0em}}}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+SweaveOpts{prefix.string=tmpout/t, split=TRUE, ae=FALSE, height=4, width=6}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+% We need 2 image files for logos, top left (logoleft) and right
+\end_layout
+
+\begin_layout Plain Layout
+
+% (logo-vert).
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+% You can manually copy your desired image files
+\end_layout
+
+\begin_layout Plain Layout
+
+% 
+\begin_inset Quotes eld
+\end_inset
+
+logoleft.pdf
+\begin_inset Quotes erd
+\end_inset
+
+ and 
+\begin_inset Quotes eld
+\end_inset
+
+logo-vert.pdf
+\begin_inset Quotes erd
+\end_inset
+
+ into the theme folder.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+% Or run this to retrieve or create them:
+\end_layout
+
+\begin_layout Plain Layout
+
+<<texcopy, include=FALSE, echo=FALSE, results=hide>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+## The logos we need are
+\end_layout
+
+\begin_layout Plain Layout
+
+logos <- c("logoleft.pdf", "logo-vert.pdf")
+\end_layout
+
+\begin_layout Plain Layout
+
+## This will retrieve logo files from a designated package:
+\end_layout
+
+\begin_layout Plain Layout
+
+getFiles(logos, pkg = "crmda", overwrite = TRUE)
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+%The listings class used here allows within-document style.
+\end_layout
+
+\begin_layout Plain Layout
+
+%See the instructions file for details and examples.
+ One can alter R input and 
+\end_layout
+
+\begin_layout Plain Layout
+
+%output, changing the size and color (foreground or background) 
+\end_layout
+
+\begin_layout Plain Layout
+
+%with statements like this:
+\end_layout
+
+\begin_layout Plain Layout
+
+%
+\backslash
+def
+\backslash
+Rsize{
+\backslash
+huge
+\backslash
+ttfamily}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Abstract
+\noindent
+This is an abstract.
+ Please include a terse, yet descriptive statement here of less than 200
+ words.
+ It should avoid colloquialisms and polysyllabic profundities.
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+semTable
+\end_layout
+
+\begin_layout Standard
+The 
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+semTable
+\end_layout
+
+\end_inset
+
+ function is the featured offering of the 
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+semTable
+\end_layout
+
+\end_inset
+
+ package.
+ This function allows authors who estimate structural equation models (SEM)
+ with the lavaan package for R to, more-or-less automatically, generate
+ acceptable tabular summaries for reports and presentations.
+ 
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+semTable
+\end_layout
+
+\end_inset
+
+ has been offered as a part of the 
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+kutils
+\end_layout
+
+\end_inset
+
+ package in the past, but we believe it is sufficiently well developed that
+ it can stand on its own.
+ As soon as 
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+semTable
+\end_layout
+
+\end_inset
+
+ is accepted on CRAN, this function will be removed from 
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+kutils
+\end_layout
+
+\end_inset
+
+.
+ The 
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+semTable
+\end_layout
+
+\end_inset
+
+ package also includes a function called 
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+modelComparison
+\end_layout
+
+\end_inset
+
+, which can assemble a standard format for a 
+\begin_inset Quotes eld
+\end_inset
+
+diff
+\begin_inset Quotes erd
+\end_inset
+
+ test result for structural equation models.
+ That function is considerably less elaborate than 
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+semTable
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+This essay offers an overview of the parameters and many example output
+ tables.
+\end_layout
+
+\begin_layout Standard
+Be aware that at least one item in the bibliography must be cited, or there
+ will be a LaTeX compiler error, 
+\begin_inset Quotes eld
+\end_inset
+
+I found no 
+\backslash
+citation commands---while reading file skeleton.aux
+\begin_inset Quotes erd
+\end_inset
+
+.
+ To avoid that, either delete the bibliography (at the end) or insert a
+ citation.
+ Here we cite R 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "RCore"
+literal "true"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Important Parameters
+\end_layout
+
+\begin_layout Description
+object: a named list with one or more SEM fitted lavaan model objects.
+ 
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+list(
+\begin_inset Quotes eld
+\end_inset
+
+Model A
+\begin_inset Quotes erd
+\end_inset
+
+ = obj1, 
+\begin_inset Quotes eld
+\end_inset
+
+Model B
+\begin_inset Quotes erd
+\end_inset
+
+ = obj2)
+\end_layout
+
+\end_inset
+
+.
+ Results will be side-by-side.
+ Hint: take care to adjust the columns parameter to make the results for
+ each model more narrow.
+\end_layout
+
+\begin_layout Description
+paramSets: Each fitted SEM may have many different parameter sections.
+ This argument can include any of the following: 
+\end_layout
+
+\begin_layout Description
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+c("loadings", "slopes", "intercepts", "residualvariances", "residualcovariances"
+, "latentmeans", "latentvariances", "latentcovariances", "thresholds", "construc
+ted", "fits")
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+The default is 
+\begin_inset Quotes eld
+\end_inset
+
+all
+\begin_inset Quotes erd
+\end_inset
+
+, and the setting applies to all of the models in the fitted object list.
+\end_layout
+
+\end_deeper
+\begin_layout Description
+paramSetLabels: This should be a named vector of 
+\begin_inset Quotes eld
+\end_inset
+
+pretty-printable
+\begin_inset Quotes erd
+\end_inset
+
+ labels for the parameter sets.
+ It is not necessary to provide improved labels for all paramSets items,
+ but it is allowed to do so.
+\end_layout
+
+\begin_layout Description
+columns: choose the desired columns in the output.
+ In the default table in lavaan summaries, the columns are [
+\begin_inset Quotes eld
+\end_inset
+
+Estimate
+\begin_inset Quotes erd
+\end_inset
+
+, 
+\begin_inset Quotes eld
+\end_inset
+
+Std.
+ Error
+\begin_inset Quotes erd
+\end_inset
+
+, 
+\begin_inset Quotes eld
+\end_inset
+
+Z
+\begin_inset Quotes erd
+\end_inset
+
+, and 
+\begin_inset Quotes eld
+\end_inset
+
+p
+\begin_inset Quotes erd
+\end_inset
+
+].
+ In our opinion, inclusion of both the standard error and the Z is redundant
+ and the p value may not be necessary if significance stars are used.
+ Hence we provide alternatives to 
+\begin_inset Quotes eld
+\end_inset
+
+tighten up
+\begin_inset Quotes erd
+\end_inset
+
+ the result table.
+ To specify columns, the legal parameter values may be drawn from c(
+\begin_inset Quotes eld
+\end_inset
+
+est", "se", "z", "p", "rsquare", "estse", "eststars", "estsestars").
+ The four new values are the R-square for the item, a compact combined estimate
+ and standard errors (estse: 
+\begin_inset Quotes eld
+\end_inset
+
+1.2(0.02)
+\begin_inset Quotes erd
+\end_inset
+
+), with estimates with stars and no standard errors (eststars: 
+\begin_inset Quotes eld
+\end_inset
+
+1.2**
+\begin_inset Quotes erd
+\end_inset
+
+) or estimates with standard errors in parentheses with 
+\begin_inset Quotes eld
+\end_inset
+
+significance stars
+\begin_inset Quotes erd
+\end_inset
+
+ (estsestars: 
+\begin_inset Quotes eld
+\end_inset
+
+1.2(0.02)**
+\begin_inset Quotes erd
+\end_inset
+
+).
+ Columns can differ between models, so a named list of vectors will be accepted:
+ list("Model A" = c("est", "se"), "Model B" = c("estse", "p")
+\end_layout
+
+\begin_layout Description
+columnLabels: names list of 
+\begin_inset Quotes eld
+\end_inset
+
+presentable
+\begin_inset Quotes erd
+\end_inset
+
+ titles for columns that authors prefer.
+ Provide these names by parameter, not by model: 
+\begin_inset Quotes eld
+\end_inset
+
+"est" = "Estimate", se = "Std.
+ Err.", z = "z", p = "p", rsquare = "R Square", estse = "Estimate(Std.Err.")
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+fits: selection of fit indices to include.
+ The help page has a partial list of these, but the lavaan estimator can
+ generate additional fit indicators for models of different types.
+ This is the one part of the semTable output that is likely to require some
+ hand-editing in order to be truly publication ready.
+\end_layout
+
+\begin_layout Description
+varLabels: Rather than R variable names, a truly polished table needs presentabl
+e variable names.
+ Provide a named vector of names in the format 
+\begin_inset Quotes eld
+\end_inset
+
+orig.R.name
+\begin_inset Quotes erd
+\end_inset
+
+ = 
+\begin_inset Quotes eld
+\end_inset
+
+new.pretty.name
+\begin_inset Quotes erd
+\end_inset
+
+.
+ See examples below.
+\end_layout
+
+\begin_layout Description
+type: Can be 
+\begin_inset Quotes eld
+\end_inset
+
+latex
+\begin_inset Quotes erd
+\end_inset
+
+, 
+\begin_inset Quotes eld
+\end_inset
+
+html
+\begin_inset Quotes erd
+\end_inset
+
+ or 
+\begin_inset Quotes eld
+\end_inset
+
+csv
+\begin_inset Quotes erd
+\end_inset
+
+.
+ If a table object is created with one format in mind, the object can be
+ re-designated to a new format.
+ See examples in 
+\begin_inset Quotes eld
+\end_inset
+
+?semTable
+\begin_inset Quotes erd
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Description
+LaTeX
+\begin_inset space ~
+\end_inset
+
+specific
+\begin_inset space ~
+\end_inset
+
+arguments: 
+\end_layout
+
+\begin_deeper
+\begin_layout Description
+table.float: is an enclosing float table object required, or should we simply
+ make a tabular (or longtable) object.
+\end_layout
+
+\begin_layout Description
+longtable If longtable is true (probably preferred), use the LaTeX class
+ longtable.
+ Otherwise tabular.
+\end_layout
+
+\begin_layout Description
+caption: title for the floating table, if table.float=TRUE.
+ 
+\end_layout
+
+\begin_layout Description
+label: label to be used for internal cross-referencing.
+\end_layout
+
+\begin_layout Description
+centering: One of these c(
+\begin_inset Quotes eld
+\end_inset
+
+siunitx
+\begin_inset Quotes erd
+\end_inset
+
+, 
+\begin_inset Quotes eld
+\end_inset
+
+none
+\begin_inset Quotes erd
+\end_inset
+
+).
+\end_layout
+
+\end_deeper
+\begin_layout Description
+alpha: The levels of statistical significance to be used for assigning starts
+ (only needed if columns includes eststars or estsestars).
+ 
+\end_layout
+
+\begin_layout Description
+file: This is a convenience function to save the results in a separate file.
+ It will add suffix 
+\begin_inset Quotes eld
+\end_inset
+
+.tex
+\begin_inset Quotes erd
+\end_inset
+
+, 
+\begin_inset Quotes eld
+\end_inset
+
+.html
+\begin_inset Quotes erd
+\end_inset
+
+, or 
+\begin_inset Quotes eld
+\end_inset
+
+.csv
+\begin_inset Quotes erd
+\end_inset
+
+, depending on the value of type.
+ This is the same as fitting a model with print.results = FALSE and then
+ running cat(object, file= 
+\begin_inset Quotes eld
+\end_inset
+
+fn
+\begin_inset Quotes erd
+\end_inset
+
+) to save the result object in a file.
+\end_layout
+
+\begin_layout Standard
+print.results: If FALSE, the results are not immediately displayed.
+ This is advantageous if an author wants to revise the marked-up table results
+ or control the point at which they are delivered in the documents.
+\end_layout
+
+\begin_layout Section
+Confirmatory Factor Analysis
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<ignoremeRsetup2, include=F, results=hide>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+require(lavaan)
+\end_layout
+
+\begin_layout Plain Layout
+
+library(semTable)
+\end_layout
+
+\begin_layout Plain Layout
+
+tempdir <- 
+\begin_inset Quotes eld
+\end_inset
+
+tmpout
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+if(!dir.exists(tempdir)) dir.create(tempdir)
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+## The example from lavaan's docs
+\end_layout
+
+\begin_layout Plain Layout
+
+HS.model <- ' visual  =~ x1 + x2 + x3
+\end_layout
+
+\begin_layout Plain Layout
+
+              textual =~ x4 + x5 + x6
+\end_layout
+
+\begin_layout Plain Layout
+
+              speed   =~ x7 + x8 + x9'
+\end_layout
+
+\begin_layout Plain Layout
+
+fit1 <- cfa(HS.model, data = HolzingerSwineford1939,
+\end_layout
+
+\begin_layout Plain Layout
+
+            std.lv = TRUE, meanstructure = TRUE)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The 
+\begin_inset Quotes eld
+\end_inset
+
+raw
+\begin_inset Quotes erd
+\end_inset
+
+ output from the lavaan summary function is as follows:
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+summary(fit1)
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+## Try a LaTeX file first
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<results=tex>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+vlabs <- c(
+\begin_inset Quotes eld
+\end_inset
+
+x1
+\begin_inset Quotes erd
+\end_inset
+
+ = 
+\begin_inset Quotes eld
+\end_inset
+
+Indicator 1
+\begin_inset Quotes erd
+\end_inset
+
+, 
+\begin_inset Quotes eld
+\end_inset
+
+x2
+\begin_inset Quotes erd
+\end_inset
+
+ = 
+\begin_inset Quotes eld
+\end_inset
+
+Indicator 2
+\begin_inset Quotes erd
+\end_inset
+
+, x3 = 
+\begin_inset Quotes eld
+\end_inset
+
+Indicator 3
+\begin_inset Quotes erd
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Plain Layout
+
+fit1.t1 <- semTable(fit1, columns = c("estse", "p"),
+\end_layout
+
+\begin_layout Plain Layout
+
+                    fits = c("chisq", "rmsea"), file = file.path(tempdir,
+ "fit1.t1"),
+\end_layout
+
+\begin_layout Plain Layout
+
+                    varLabels = vlabs, type = "latex", print.results = FALSE,
+\end_layout
+
+\begin_layout Plain Layout
+
+                    table.float = TRUE, caption = 
+\begin_inset Quotes eld
+\end_inset
+
+Holzinger Swineford Data
+\begin_inset Quotes erd
+\end_inset
+
+, label = 
+\begin_inset Quotes eld
+\end_inset
+
+tab:HS10
+\begin_inset Quotes erd
+\end_inset
+
+, longtable=TRUE)
+\end_layout
+
+\begin_layout Plain Layout
+
+cat(fit1.t1)
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+On the other hand, if HTML output is desired, replace type = 
+\begin_inset Quotes eld
+\end_inset
+
+latex
+\begin_inset Quotes erd
+\end_inset
+
+ with type = 
+\begin_inset Quotes eld
+\end_inset
+
+html
+\begin_inset Quotes erd
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<HS10, eval=T,include=T>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+fit1.t1h <- semTable(fit1, columns = c("estse", "p"),
+\end_layout
+
+\begin_layout Plain Layout
+
+                    fits = c("chisq", "rmsea"), file = file.path(tempdir,
+ "fit1.t1.html"),
+\end_layout
+
+\begin_layout Plain Layout
+
+                    varLabels = vlabs, type = "html", print.results = FALSE)
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<eval=F>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+browseURL(file.path(tempdir, "fit1.t1.html"))
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+lstinputlisting{tmpout/fit1.t1.html}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+## Try CSV output next
+\end_layout
+
+\begin_layout Plain Layout
+
+fit1.t1 <- semTable(fit1, columns = c("estse", "p"),
+\end_layout
+
+\begin_layout Plain Layout
+
+                    fits = c("chisq", "rmsea"), file = file.path(tempdir,
+ "fit1.t1"),
+\end_layout
+
+\begin_layout Plain Layout
+
+                    varLabels = c("x1" = "hello"), type = "csv", print.results
+ = FALSE)
+\end_layout
+
+\begin_layout Plain Layout
+
+## Go inspect this file with a spread sheet program:
+\end_layout
+
+\begin_layout Plain Layout
+
+attr(fit1.t1, "file")
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+## FIXME FIXME
+\end_layout
+
+\begin_layout Plain Layout
+
+# Change output format to csv
+\end_layout
+
+\begin_layout Plain Layout
+
+cat(markupConvert(attr(fit1.t1, "markedResults"), type = "csv"))
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<fit1.t2, results=tex>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+## Now demonstrate variable labels
+\end_layout
+
+\begin_layout Plain Layout
+
+vl <- c(visual = "Visual", textual = "Textual", speed = "Speed",
+\end_layout
+
+\begin_layout Plain Layout
+
+       x1 = "V1", x2 = "V2", x3 = "V3")
+\end_layout
+
+\begin_layout Plain Layout
+
+fit1.t2 <- semTable(fit1, columns = c("est", "estse"),
+\end_layout
+
+\begin_layout Plain Layout
+
+                    fits = c("chisq", "rmsea"), file = file.path(tempdir,
+ "fit1.t2"),
+\end_layout
+
+\begin_layout Plain Layout
+
+                    varLabels = vl)
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<fit1.t3, results=tex>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+## floating table
+\end_layout
+
+\begin_layout Plain Layout
+
+fit1.t3 <- semTable(fit1, columns = c("est", "estse"),
+\end_layout
+
+\begin_layout Plain Layout
+
+                    fits = c("chisq", "rmsea"), file = file.path(tempdir,
+ "fit1.t3"),
+\end_layout
+
+\begin_layout Plain Layout
+
+                    varLabels = vl, table.float = TRUE,
+\end_layout
+
+\begin_layout Plain Layout
+
+                    caption = "Holzinger Swineford 1939",
+\end_layout
+
+\begin_layout Plain Layout
+
+                    label = "tab:hs1939")
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<fit1.t4, results=tex>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+## floating longtable
+\end_layout
+
+\begin_layout Plain Layout
+
+fit1.t4 <- semTable(fit1, columns = c("est", "estsestars"),
+\end_layout
+
+\begin_layout Plain Layout
+
+                    fits = c("chisq", "rmsea"), file = file.path(tempdir,
+ "fit1.t4"),
+\end_layout
+
+\begin_layout Plain Layout
+
+                    varLabels = vl, longtable = TRUE,
+\end_layout
+
+\begin_layout Plain Layout
+
+                    caption = "Holzinger Swineford 1939",
+\end_layout
+
+\begin_layout Plain Layout
+
+                    label = "tab:hs1939")
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<results=tex>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+##columnLabels
+\end_layout
+
+\begin_layout Plain Layout
+
+fit1.t5 <- semTable(fit1, fits = c("chisq", "rmsea"),
+\end_layout
+
+\begin_layout Plain Layout
+
+               columns = c("est", "se", 
+\begin_inset Quotes eld
+\end_inset
+
+p
+\begin_inset Quotes erd
+\end_inset
+
+), columnLabels = c(se = "S.E."),
+\end_layout
+
+\begin_layout Plain Layout
+
+               file = file.path(tempdir, "fit1.t5"))
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<results=tex>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+fit1.t6 <- semTable(fit1, fits = c("chisq", "rmsea"),
+\end_layout
+
+\begin_layout Plain Layout
+
+               columns = c("estsestars"),
+\end_layout
+
+\begin_layout Plain Layout
+
+               columnLabels = c("estsestars" = "Est(SE)"),
+\end_layout
+
+\begin_layout Plain Layout
+
+               file = file.path(tempdir, "fit1.t6"))
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<results=tex>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+vl <- c(x1 = "happy 1", x2 = "happy 2", x3 = "happy 3",
+\end_layout
+
+\begin_layout Plain Layout
+
+        visual = "Seeing", textual = "Thumb Texting")
+\end_layout
+
+\begin_layout Plain Layout
+
+fit1.t7 <- semTable(fit1, fits = c("chisq", "rmsea"),
+\end_layout
+
+\begin_layout Plain Layout
+
+               columns = c("eststars", "p"),
+\end_layout
+
+\begin_layout Plain Layout
+
+               columnLabels = c("eststars" = "Est(SE)"),
+\end_layout
+
+\begin_layout Plain Layout
+
+               file = file.path(tempdir, "fit1.t7"),
+\end_layout
+
+\begin_layout Plain Layout
+
+               varLabels = vl, longtable = TRUE, type = "latex")
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<results=tex>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+## 2 groups
+\end_layout
+
+\begin_layout Plain Layout
+
+fit1.g <- cfa(HS.model, data = HolzingerSwineford1939,
+\end_layout
+
+\begin_layout Plain Layout
+
+                        std.lv = TRUE, group = "school", estimator = "MLR")
+\end_layout
+
+\begin_layout Plain Layout
+
+fit1.gt1 <- semTable(fit1.g, columns = c("estsestars", "p"),
+\end_layout
+
+\begin_layout Plain Layout
+
+               columnLabels = c(estsestars = "Est w/stars", p = "p-value"),
+\end_layout
+
+\begin_layout Plain Layout
+
+               file = file.path(tempdir, "fit1.gt1"))
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<results=tex>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+## Now name particular group by name
+\end_layout
+
+\begin_layout Plain Layout
+
+fit1.gt2 <- semTable(fit1.g, columns = c("estsestars", "p"),
+\end_layout
+
+\begin_layout Plain Layout
+
+               columnLabels = c(estsestars = "Est w/stars", p = "p-value"),
+\end_layout
+
+\begin_layout Plain Layout
+
+               file = file.path(tempdir, "fit1.gt2"), groups = "Pasteur")
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<results=tex>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+## Name particular group by number
+\end_layout
+
+\begin_layout Plain Layout
+
+fit1.gt3 <- semTable(fit1.g, columns = c("estsestars", "p"),
+\end_layout
+
+\begin_layout Plain Layout
+
+               columnLabels = c(estsestars = "Est w/stars", p = "p-value"),
+\end_layout
+
+\begin_layout Plain Layout
+
+               file = file.path(tempdir, "fit1.gt3"), groups = 1)
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<results=tex>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+## Fit same model with standardization
+\end_layout
+
+\begin_layout Plain Layout
+
+fit1.std <- update(fit1, std.lv = TRUE, std.ov = TRUE, meanstructure = TRUE)
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<results=tex>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+# include 2 models in table request
+\end_layout
+
+\begin_layout Plain Layout
+
+fit1.t2 <- semTable(list("Ordinary" = fit1, "Standardized" = fit1.std),
+\end_layout
+
+\begin_layout Plain Layout
+
+                    file = file.path(tempdir, "fit1.2.1"))
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<results=tex>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+semTable(list("Ordinary" = fit1, "Standardized" = fit1.std),
+\end_layout
+
+\begin_layout Plain Layout
+
+    columns = list("Ordinary" = c("est", "se"), "Standardized" = c("est")),
+\end_layout
+
+\begin_layout Plain Layout
+
+    columnLabels = c(est = "Est", se = "SE"), file = file.path(tempdir, "fit1.2.2")
+)
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<results=tex>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+fit1.t2 <- semTable(fit1, fits = c("chisq", "rmsea"), print.results = FALSE)
+\end_layout
+
+\begin_layout Plain Layout
+
+cat(fit1.t2)
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<results=tex>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+fit1.t3 <- semTable(fit1, fits = c("chisq", "rmsea", "tli"),
+\end_layout
+
+\begin_layout Plain Layout
+
+                    columns = c("est", "se"))
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<eval=F>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+cat(fit1.t3, file = file.path(tempdir, "fit1.t3.tex"))
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+## Basic SEM
+\end_layout
+
+\begin_layout Plain Layout
+
+regmodel1 <- 'visual  =~ x1 + x2 + x3 
+\end_layout
+
+\begin_layout Plain Layout
+
+             textual =~ x4 + x5 + x6
+\end_layout
+
+\begin_layout Plain Layout
+
+             speed   =~ x7 + x8 + x9
+\end_layout
+
+\begin_layout Plain Layout
+
+             visual ~ textual + speed
+\end_layout
+
+\begin_layout Plain Layout
+
+'
+\end_layout
+
+\begin_layout Plain Layout
+
+##'
+\end_layout
+
+\begin_layout Plain Layout
+
+fit2 <- sem(regmodel1, data = HolzingerSwineford1939, std.lv = TRUE,
+\end_layout
+
+\begin_layout Plain Layout
+
+            meanstructure = TRUE)
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+fit2.std <- update(fit2, std.lv = TRUE, std.ov = TRUE, meanstructure = TRUE)
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+##'
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<results=tex>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+fit2.t <- semTable(list("Ordinary" = fit2, "Standardized" = fit2.std), fits
+ = "rmsea",
+\end_layout
+
+\begin_layout Plain Layout
+
+                   columns = list("Ordinary" = c("est", "se", "p"),
+\end_layout
+
+\begin_layout Plain Layout
+
+                                   "Standardized" = c("estsestars")),
+\end_layout
+
+\begin_layout Plain Layout
+
+                   columnLabels = c("est" = "Est", "se" = "Std.Err.", "p"
+ = "p",
+\end_layout
+
+\begin_layout Plain Layout
+
+                                    "estsestars" = "Standardized Est."),
+\end_layout
+
+\begin_layout Plain Layout
+
+                   paramSets = c("loadings", "intercepts", "slopes", "latentcova
+riances"),
+\end_layout
+
+\begin_layout Plain Layout
+
+                   file = file.path(tempdir, "fit2.t1"), type = "latex")
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+# Change output format to csv
+\end_layout
+
+\begin_layout Plain Layout
+
+cat(markupConvert(attr(fit2.t, "markedResults"), type = "csv"))
+\end_layout
+
+\begin_layout Plain Layout
+
+cat(markupConvert(attr(fit2.t, "markedResults"), type = "html"))
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<results=hide>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+fit2.t <- semTable(list("Ordinary" = fit2, "Standardized" = fit2.std),
+\end_layout
+
+\begin_layout Plain Layout
+
+              type = c("html"),
+\end_layout
+
+\begin_layout Plain Layout
+
+              file = file.path(tempdir, "fit2.t"),
+\end_layout
+
+\begin_layout Plain Layout
+
+              varLabels = c(x1 = "happy 1", x2 = "happy 2", x3 = "happy
+ 3"),
+\end_layout
+
+\begin_layout Plain Layout
+
+              print.results = FALSE)
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<results=tex>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+regmodel2 <- 'visual  =~ x1 + x2 + x3
+\end_layout
+
+\begin_layout Plain Layout
+
+              textual =~ x4 +  x6
+\end_layout
+
+\begin_layout Plain Layout
+
+              speed   =~  x8 + x9
+\end_layout
+
+\begin_layout Plain Layout
+
+              visual ~ textual 
+\end_layout
+
+\begin_layout Plain Layout
+
+'
+\end_layout
+
+\begin_layout Plain Layout
+
+fit3 <- sem(regmodel2, data = HolzingerSwineford1939, std.lv = TRUE,
+\end_layout
+
+\begin_layout Plain Layout
+
+            meanstructure = TRUE)
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<results=tex>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+fit3.t1 <-  semTable(fit3, type = c("latex"),
+\end_layout
+
+\begin_layout Plain Layout
+
+                     columns = c("estsestars", "rsquare"))
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+fit3.std <- update(fit2, std.lv = TRUE, std.ov = TRUE)
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<fit3.std.t1.html, results=hide>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+fit3.std.t1 <- semTable(list("Mod 1" = fit2, "Mod 1 std" = fit2.std, "Mod 2"
+ = fit3,
+\end_layout
+
+\begin_layout Plain Layout
+
+              "Mod 3 std" = fit3.std), columns = c("estsestars"), type =
+ "html",
+\end_layout
+
+\begin_layout Plain Layout
+
+               file = file.path(tempdir, "fit3.std.t1"), print.results = FALSE)
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<results=tex>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+fit3 <- sem(regmodel1, data = HolzingerSwineford1939, group = "school")
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<results=tex>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+fit3.t1 <- semTable(fit3, type = "latex")
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<results=tex>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+fit3.t2 <- semTable(fit3, columns = c("est", "se"),
+\end_layout
+
+\begin_layout Plain Layout
+
+                     columnLabels = c(est = "Est.", se = "S.E."))
+\end_layout
+
+\begin_layout Plain Layout
+
+##'
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<results=tex>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+fit3.t2 <- semTable(fit3, fits = c("chisq", "rmsea", "cfi"), print.results
+ = FALSE)
+\end_layout
+
+\begin_layout Plain Layout
+
+cat(fit3.t2)
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<results=hide>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+##HTML test
+\end_layout
+
+\begin_layout Plain Layout
+
+fit3.t2 <- semTable(fit3, columns = c("estsestars"),
+\end_layout
+
+\begin_layout Plain Layout
+
+            fits = c("chisq", "rmsea", "cfi"), type = "html",
+\end_layout
+
+\begin_layout Plain Layout
+
+            file = file.path(tempdir, "fit3.t2"))
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<results=tex>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+fit3.t2 <- semTable(fit3, fits = c("rmsea", "cfi"))
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+model <- "factor =~ .7*y1 + .7*y2 + .7*y3 + .7*y4
+\end_layout
+
+\begin_layout Plain Layout
+
+                 y1 | -1*t1 + 1*t2
+\end_layout
+
+\begin_layout Plain Layout
+
+                 y2 | -.5*t1 + 1*t2
+\end_layout
+
+\begin_layout Plain Layout
+
+                 y3 | -.2*t1 + 1*t2
+\end_layout
+
+\begin_layout Plain Layout
+
+                 y4 | -1*t1 + 1*t2"
+\end_layout
+
+\begin_layout Plain Layout
+
+dat <- simulateData(model, sample.nobs = 300)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+testmodel <- "ExampleFactor =~ y1 + y2 + y3 + y4"
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+fit4 <- cfa(testmodel, data = dat, ordered = colnames(dat),
+\end_layout
+
+\begin_layout Plain Layout
+
+            std.lv = FALSE)
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<results=hide>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+fit4.t1 <- semTable(fit4, paramSets = c("loadings", "thresholds",
+\end_layout
+
+\begin_layout Plain Layout
+
+    "residualvariances"), fits = c("tli", "chisq"),
+\end_layout
+
+\begin_layout Plain Layout
+
+    fitLabels = c(tli = "TLI", chisq = "chisq"), type = "html")
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<results=tex>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+fit4.t2 <- semTable(fit4, fits = c("rmsea", "cfi", "chisq"),
+\end_layout
+
+\begin_layout Plain Layout
+
+              fitLabels = c(rmsea = "Root M.SQ.E.A", cfi = "CompFitIdx", chisq
+ = "chisq"),
+\end_layout
+
+\begin_layout Plain Layout
+
+              type = "latex")
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+## Model 5 - Mediation model with equality constraints
+\end_layout
+
+\begin_layout Plain Layout
+
+model5 <-
+\end_layout
+
+\begin_layout Plain Layout
+
+    '
+\end_layout
+
+\begin_layout Plain Layout
+
+    # latent variable definitions
+\end_layout
+
+\begin_layout Plain Layout
+
+    ind60 =~ x1 + x2 + x3
+\end_layout
+
+\begin_layout Plain Layout
+
+    dem60 =~ y1 + e*y2 + d*y3 + y4
+\end_layout
+
+\begin_layout Plain Layout
+
+    dem65 =~ y5 + e*y6 + d*y7 + y8
+\end_layout
+
+\begin_layout Plain Layout
+
+    # regressions
+\end_layout
+
+\begin_layout Plain Layout
+
+    dem60 ~ a*ind60
+\end_layout
+
+\begin_layout Plain Layout
+
+    dem65 ~ c*ind60 + b*dem60
+\end_layout
+
+\begin_layout Plain Layout
+
+    # residual correlations
+\end_layout
+
+\begin_layout Plain Layout
+
+    y1 ~~ y5
+\end_layout
+
+\begin_layout Plain Layout
+
+    y2 ~~ y4 + y6
+\end_layout
+
+\begin_layout Plain Layout
+
+    y3 ~~ y7
+\end_layout
+
+\begin_layout Plain Layout
+
+    y4 ~~ y8
+\end_layout
+
+\begin_layout Plain Layout
+
+    y6 ~~ y8
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    # indirect effect (a*b)
+\end_layout
+
+\begin_layout Plain Layout
+
+    ## := operator defines new parameters
+\end_layout
+
+\begin_layout Plain Layout
+
+    ab := a*b
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    ## total effect
+\end_layout
+
+\begin_layout Plain Layout
+
+    total := c + (a*b)
+\end_layout
+
+\begin_layout Plain Layout
+
+    '
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+fit5 <- sem(model5, data=PoliticalDemocracy)
+\end_layout
+
+\begin_layout Plain Layout
+
+fit5boot <- sem(model5, data=PoliticalDemocracy, se = "bootstrap", bootstrap
+ = 100)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<results=hide>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+fit5.t1 <- semTable(list("Democracy" = fit5), columns = c("estsestars", "rsquare"
+),
+\end_layout
+
+\begin_layout Plain Layout
+
+           file = file.path(tempdir, "fit5.1t"), type = "html",
+\end_layout
+
+\begin_layout Plain Layout
+
+           print.results = FALSE)
+\end_layout
+
+\begin_layout Plain Layout
+
+if(interactive()) browseURL(file.path(tempdir, "fit5.t1.html"))
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<results=tex>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+#cat(markupConvert(attr(fit5.t1, "markedResults"), type = "latex"),
+\end_layout
+
+\begin_layout Plain Layout
+
+#         file = file.path(tempdir, "fit5.t1.tex"))
+\end_layout
+
+\begin_layout Plain Layout
+
+cat(markupConvert(attr(fit5.t1, "markedResults"), type = "latex"))
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<results=tex>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+semTable(list("Democracy" = fit5, "Bootstrapped SE" = fit5boot),
+\end_layout
+
+\begin_layout Plain Layout
+
+         columns = c("estsestars", "rsquare"),
+\end_layout
+
+\begin_layout Plain Layout
+
+         file = file.path(tempdir, "fit5.2"), type = "latex",
+\end_layout
+
+\begin_layout Plain Layout
+
+         longtable = TRUE)
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<results=tex>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+semTable(list("Democracy" = fit5, "Bootstrapped SE" = fit5boot),
+\end_layout
+
+\begin_layout Plain Layout
+
+         columns = c("estsestars", "rsquare"),
+\end_layout
+
+\begin_layout Plain Layout
+
+         paramSets = c("loadings", "slopes", "residualvariances", "constructed")
+,
+\end_layout
+
+\begin_layout Plain Layout
+
+         file = file.path(tempdir, "fit5.3"), type = "latex",
+\end_layout
+
+\begin_layout Plain Layout
+
+         longtable = TRUE)
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<results=tex>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+##'
+\end_layout
+
+\begin_layout Plain Layout
+
+## Model 5b - Revision of Model 5s
+\end_layout
+
+\begin_layout Plain Layout
+
+model5b <-
+\end_layout
+
+\begin_layout Plain Layout
+
+    '
+\end_layout
+
+\begin_layout Plain Layout
+
+    # Cut some indicators from the measurement model
+\end_layout
+
+\begin_layout Plain Layout
+
+    ind60 =~ x1 + x2 
+\end_layout
+
+\begin_layout Plain Layout
+
+    dem60 =~ y1 + e*y2 + d*y3 + y4
+\end_layout
+
+\begin_layout Plain Layout
+
+    dem65 =~ y5 + e*y6 + d*y7 
+\end_layout
+
+\begin_layout Plain Layout
+
+    # regressions
+\end_layout
+
+\begin_layout Plain Layout
+
+    dem60 ~ a*ind60
+\end_layout
+
+\begin_layout Plain Layout
+
+    dem65 ~ c*ind60 + b*dem60
+\end_layout
+
+\begin_layout Plain Layout
+
+    # cut out the residual correlations
+\end_layout
+
+\begin_layout Plain Layout
+
+    # indirect effect (a*b)
+\end_layout
+
+\begin_layout Plain Layout
+
+    ## := operator defines new parameters
+\end_layout
+
+\begin_layout Plain Layout
+
+    ab := a*b
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+    ## total effect
+\end_layout
+
+\begin_layout Plain Layout
+
+    total := c + (a*b)
+\end_layout
+
+\begin_layout Plain Layout
+
+    '
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+fit5b <- sem(model5b, data=PoliticalDemocracy, se = "bootstrap",
+\end_layout
+
+\begin_layout Plain Layout
+
+bootstrap = 100)
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<results=tex>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+semTable(list("Model 5" = fit5boot, "Model 5b" = fit5b),
+\end_layout
+
+\begin_layout Plain Layout
+
+         columns = c("estsestars", "rsquare"),
+\end_layout
+
+\begin_layout Plain Layout
+
+         file = file.path(tempdir, "fit5.5"),
+\end_layout
+
+\begin_layout Plain Layout
+
+          type = "latex",
+\end_layout
+
+\begin_layout Plain Layout
+
+         longtable = TRUE)
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<results=tex>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<results=tex>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<results=tex>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<results=tex>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<eval=F>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+##'
+\end_layout
+
+\begin_layout Plain Layout
+
+## convert same object to LaTeX, save file, then test
+\end_layout
+
+\begin_layout Plain Layout
+
+## cat(markupConvert(attr(fit5.t1, "markedResults"), type = "latex"),
+\end_layout
+
+\begin_layout Plain Layout
+
+##         file = file.path(tempdir, "fit5.t1.tex"))
+\end_layout
+
+\begin_layout Plain Layout
+
+##if (interactive()) testtable("fit5.t1", tempdir)
+\end_layout
+
+\begin_layout Plain Layout
+
+if(interactive()) testtable("fit5.5", tempdir)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+list.files(tempdir)
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "R"
+options "bibtotoc,apalike2"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section*
+Replication Information
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Session-Info"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Please leave this next code chunk if you are producing a guide document.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<sessioninfo, echo=F>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+sessionInfo()
+\end_layout
+
+\begin_layout Plain Layout
+
+if(!is.null(warnings())){
+\end_layout
+
+\begin_layout Plain Layout
+
+    print("Warnings:")
+\end_layout
+
+\begin_layout Plain Layout
+
+    warnings()}
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<RoptionsRestore, include=F>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+## Don't delete this.
+ It puts the interactive session options
+\end_layout
+
+\begin_layout Plain Layout
+
+## back the way they were.
+ If this is compiled within a session
+\end_layout
+
+\begin_layout Plain Layout
+
+## it is vital to do this.
+\end_layout
+
+\begin_layout Plain Layout
+
+options(opts.orig)
+\end_layout
+
+\begin_layout Plain Layout
+
+par(par.orig)
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

@@ -24,6 +24,7 @@
 ##'     processed separately)
 ##' @param type "tex" is default, could be "filename" or "html"
 ##' @return corrected character vector
+##' @importFrom kutils alphaOnly
 ##' @export
 ##' @author Paul Johnson <pauljohn@@ku.edu>
 ##' @examples

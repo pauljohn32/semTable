@@ -46,36 +46,78 @@ detectNested <- function(models){
     pairs
 }
 
-##' Compare CFA Tables
+##' Prepare a table to compare fit measures of confirmatory factor analyses (CFA)
 ##'
-##' @param models list of lavaan cfa models. The models should be
-##'     named so as to refer to them in other arguments.
-##' @param fitmeas vector of fit measures on which to compare the
-##'     models. By default, fitmeas = c("chisq", "df", "pvalue",
-##'     "rmsea", "cfi", "tli", "srmr", "aic", "bic", "srmr", "aic",
-##'     "bic", "srmr_mplus").  Fit measures that are requested but not
-##'     found within the objects are ignored.
+##' If the parameter \code{nesting} is not specified, then this
+##' function attempts to discern which models are nested and they are
+##' ordered accordingly. The user can override that by specifing a
+##' nesting structure. This uses a new notation to represent nesting
+##' of models.  See the parameter \code{nesting}.  The syntax uses the
+##' symbols ">" and "+" in an obvious way to indicate that one model
+##' is the superset or on the same level as another. If the
+##' 
+##' In May 2018, the output approach was changed. The functions
+##' \code{xtable} and \code{print.xtable} are used to render the final
+##' result and any of the arguments allowed by \code{print.xtable} can
+##' be used here (via the \code{...} argument). We have some default
+##' settings for some \code{print.xtable}, such as \code{type = NULL},
+##' \code{file = NULL}, \code{print.results = TRUE}, and
+##' \code{math.style.exponents = TRUE}. There are some other specific
+##' defaults for type = "latex" and type = "html", but they can all be
+##' overridden by the user. We include a model legend at the bottom of
+##' the table, indicating which models are compared by the Chi-squared
+##' statistic.
+##' 
+##' If the type argument is not specified, then the output will be a
+##' simple text display of the model table.  If type is either "latex"
+##' or "html", then a marked up table will be displayed and the file
+##' argument can be used to ask for a saved version. If the user wants
+##' to simply save the result in a file, and not display on screen,
+##' insert the argument \code{print.results = FALSE}.
+##' 
+##' @param models list of lavaan cfa or sem models. Model names can be
+##'     supplied. See examples.
+##' @param fitmeas A vector of fit measures. One or more of these
+##'     \code{c("chisq", "df", "pvalue", "rmsea", "cfi", "tli",
+##'     "srmr", "aic", "bic", "srmr", "aic", "bic",
+##'     "srmr_mplus")}. Other fit measures present in the lavaan
+##'     objects will be allowed; fit measures that are requested but
+##'     not found are ignored.
 ##' @param nesting character string indicating the nesting structure
-##'     of the models.  Must only contain model names and the symbols
-##'     ">" and "+" (separated by spaces).  The parent model should be
-##'     on the left, separated by ">". When multiple models are nested
-##'     in the same parent, they are separated by the "+" sign. Please
-##'     see examples.
-##' @param scaled should scaled versions of the fit measures will be
-##'     returned.  The defaul value is TRUE.
+##'     of the models.  Must only contain model names, ">", and "+"
+##'     separated by spaces.  The model to the left of a ">" is the
+##'     parent model for all models to the right of the same ">", up
+##'     until another ">" is reached. When multiple models are nested
+##'     in the same parent, they are separated by a "+".
+##' @param scaled should scaled versions of the fit measures requested
+##'     be used if available?  The scaled statistic is determined by
+##'     the model estimation method.  The defaul value is TRUE.
 ##' @param chidif should the nested models be compared by using the
 ##'     anova function? The anova function may pass the model
 ##'     comparison on to another lavaan function.  The results are
 ##'     added to the last three columns of the comparison table. The
 ##'     default value is TRUE.
-##' @param file Default is NULL, no file created. If output file is
-##'     desired, provide a character string for the file name.
-##' @author Ben Kite
+##' @param digits The digits argument that will be passed to xtable.
+##' @param ... Arguments that will be passed to print.xtable. These
+##'     arguments can be used to control table caption, label, and so
+##'     forth. See \code{?print.xtable}.  If \code{type = "latex"} or
+##'     \code{"html"}, this function sets additional default values
+##'     for print.xtable that can be overridden by specifying
+##'     arguments here. Default type is an R data.frame, which is printed on
+##'     screen. Note the print.xtable parameter \code{print.results} determines
+##'     whether the markup is displayed before it is returned. The \code{file}
+##'     parameter can specify a file into which the markup is to be saved.
+##' @author Ben Kite <bakite@@ku.edu> and Paul Johnson
+##'     <pauljohn@@ku.edu>
 ##' @export
 ##' @importFrom stats anova update
-##' @importFrom plyr mapvalues
-##' @importFrom xtable xtable
 ##' @importFrom kutils mgsub
+##' @importFrom utils modifyList
+##' @importFrom xtable xtable print.xtable
+##' @return If type = NULL, a data.frame object includes an attribute
+##'     called "noteinfo". If type = "tex", return is a character
+##'     vector created by xtable. If type = "html", a vector of HTML
+##'     markup created by xtable.
 ##' @examples
 ##' \donttest{
 ##' ## These run longer than 5 seconds
@@ -87,8 +129,8 @@ detectNested <- function(models){
 ##' genmodel2 <- "f1 =~ .7*v1 + .7*v2 + .7*v3 + .7*v4 + .7*v5 + .2*v6
 ##' f1 ~~ 1*f1"
 ##'
-##' dat1 <- simulateData(genmodel, sample.nobs=300)
-##' dat2 <- simulateData(genmodel2, sample.nobs=300)
+##' dat1 <- simulateData(genmodel, sample.nobs = 300)
+##' dat2 <- simulateData(genmodel2, sample.nobs = 300)
 ##' dat1$group <- 0
 ##' dat2$group <- 1
 ##' dat <- rbind(dat1, dat2)
@@ -124,27 +166,44 @@ detectNested <- function(models){
 ##'     		  v5 ~ c(I5,I5)*1
 ##'     		  v6 ~ c(I6,I6)*1
 ##'     		"
-##' cc1 <- cfa(congModel, data=dat, group="group", meanstructure=TRUE, estimator="MLR")
-##' cc2 <- cfa(weakModel, data=dat, group="group", meanstructure=TRUE, estimator="MLR")
-##' cc21 <- cfa(partialweakModel, data=dat, group="group", meanstructure=TRUE, estimator="MLR")
-##' cc3 <- cfa(partialstrongModel1, data=dat, group="group", meanstructure=TRUE, estimator="MLR")
+##' cc1 <- cfa(congModel, data=dat, group="group", meanstructure=TRUE, estimator = "MLR")
+##' cc2 <- cfa(weakModel, data=dat, group="group", meanstructure=TRUE, estimator = "MLR")
+##' cc21 <- cfa(partialweakModel, data=dat, group="group", meanstructure=TRUE, estimator = "MLR")
+##' cc3 <- cfa(partialstrongModel1, data=dat, group="group", meanstructure=TRUE, estimator = "MLR")
 ##'
 ##' models <- list(cc1, cc2, cc21, cc3)
-##' compareCFA(models, nesting=NULL)
+##' ## Note, nesting is not specified, so built-in nesting detection applies
+##' compareLavaan(models)
+##' compareLavaan(models, type = "latex")
+##' compareLavaan(models, type = "html")
 ##'
-##' models <- list(Configural=cc1, Metric=cc2, PartialMetric=cc21, Scalar=cc3)
-##' compareCFA(models, nesting = "Configural > Metric + PartialMetric > Scalar")
-##'
-##' compareCFA(models, fitmeas = c("chisq", "df", "cfi", "rmsea", "tli"),
-##' nesting = "Configural > Metric + PartialMetric > Scalar")
+##' ## Now we specify model labels in the list
+##' models <- list("Configural" = cc1, "Metric" = cc2, "PartialMetric" = cc21, "Scalar" = cc3)
+##' ## The model labels are used in the nesting parameter
+##' compareLavaan(models, nesting = "Configural > Metric + PartialMetric > Scalar")
+##' 
+##' compareLavaan(models, fitmeas = c("chisq", "df", "cfi", "rmsea", "tli"),
+##'             nesting = "Configural > Metric + PartialMetric > Scalar")
 ##'
 ##' ## Creates output file
-##' ## compareCFA(models, fitmeas=c("chisq", "df", "cfi", "rmsea", "tli"),
-##' ## nesting = "Configural > Metric + PartialMetric > Scalar", file="table.tex")
+##' ## compareLavaan(models, fitmeas = c("chisq", "df", "cfi", "rmsea", "tli"),
+##' ## nesting = "Configural > Metric + PartialMetric > Scalar", type = "tex",
+##' ## file = "/tmp/table.tex")
 ##' }
-compareCFA <- function(models,
+compareLavaan <- function(models,
                        fitmeas = c("chisq", "df",  "pvalue", "rmsea", "cfi", "tli", "srmr", "aic", "bic"),
-                       nesting = NULL, scaled = TRUE, chidif = TRUE, file = NULL){
+                       nesting = NULL, scaled = TRUE, chidif = TRUE, digits = 3,  ...)
+{
+    dots <- list(...)
+    if (!is.null(dots$type)){
+        type <- dots$type
+        if(type %in% c("latex", "tex")) type <- "latex"
+        dots$type <- NULL
+    } else {
+        type <- NULL
+    }
+    print.results <- if (!is.null(dots$print.results)) dots$print.results else TRUE
+    
     if (is.null(names(models))){
         names(models) <- paste0("Model", seq(1, length(models)))
     }
@@ -161,10 +220,10 @@ compareCFA <- function(models,
         mods <- names(models)
         xx %in% c(ops, mods)
         if (prod(xx %in% c(ops, mods)) != 1){
-            stop(paste("There is something wrong with your nesting argument.",
-                       "The only legal entries are \">\", \"+\", and the names",
-                       "of models provided in the models list, and these entries",
-                       "must be separated by spaces!"))
+            MESSG <- paste("nesting parameter has illegal symbols.",
+                       "Only \">\", \"+\" are allowed and model names must",
+                       "match the names in the model list")
+            stop(MESSG)
         }
         yy <- grep(">", xx)
         parents <- xx[c(yy-1)]
@@ -201,38 +260,97 @@ compareCFA <- function(models,
         for (i in rownames(sumtable)){
             comparison <- nestedPairs[which(nestedPairs[,"nested"] == i),]
             if (!is.na(comparison["parent"])){
-                tmp <- round(lavaan::anova(models[[comparison["nested"]]], models[[comparison["parent"]]])[2,c("Chisq diff", "Df diff", "Pr(>Chisq)")], 3)
+                tmp <- round(lavaan::anova(models[[comparison["nested"]]],
+                       models[[comparison["parent"]]])[2, c("Chisq diff", "Df diff", "Pr(>Chisq)")], 3)
                 sumtable[i, c("dchi", "ddf", "npval")] <- tmp
                 sumtable[i, "dchi"] <- paste0(sumtable[i, "dchi"], letters[letter])
-                noteinfo[[letter]] <- paste0(letters[letter], " = ", comparison["nested"], " .vs ", comparison["parent"])
+                noteinfo[[letter]] <- paste0(letters[letter], " = ", comparison["nested"], " vs ", comparison["parent"])
                 letter <- letter + 1
             }
         }
-        output <- list(sumtable, unlist(noteinfo))
-    }else{
-        output <- list(sumtable)
-    }
-    if(!is.null(file)){
-        tableinfo <- output[[1]]
-        names(tableinfo) <- gsub(".scaled", "", names(tableinfo))
-        texcode <- print(xtable(tableinfo), print.results = FALSE)
-        name_old <- c("^chisq$", "^pvalue$", "^dchi$", "^ddf$", "^npval$")
-        name_new <- c("$\\\\chi^{2}$", "\\\\textit{p}-value", "$\\\\Delta\\\\chi^{2}$", "$\\\\Delta df$", "\\\\textit{p}")
-        texcode <- mgsub(name_old, name_new, texcode)
-
-        if(length(output) > 1){
-            texcode <- paste0(texcode, "\n", paste0(output[[2]], collapse = ", "), "\n\n")
-        }
-        write(texcode, file = file)
-    }
-    if(!is.null(file)){
-        cat(texcode)
-        invisible(texcode)
+        dframe <- sumtable
+        attr(dframe, "noteinfo") <- unlist(noteinfo)
     } else {
-        return(output)
+        dframe <- sumtable
+        noteinfo <- NULL
     }
+
+    sanitize.colnames <- function(z){
+        name_old <- c("^chisq$", "^pvalue$", "^dchi$", "^ddf$", "^npval$")
+        name_new <- c("$\\\\chi^{2}$", "\\\\textit{p}-value",
+                      "$\\\\Delta\\\\chi^{2}$", "$\\\\Delta df$", "\\\\textit{p}")
+        texcode <- mgsub(name_old, name_new, z)
+    }
+
+    if(!is.null(type)){
+        tableinfo <- dframe
+        names(tableinfo) <- gsub(".scaled", "", names(tableinfo))
+        xtab1 <- xtable(tableinfo)
+        xtab1.legend <- if(!is.null(noteinfo)) noteinfo else NULL
+        if(tolower(type) %in% c("tex", "latex")){
+            print.xtable.argz <- list(type = NULL,
+                                      file = NULL,
+                                      print.results = TRUE,
+                                      sanitize.colnames.function = sanitize.colnames,
+                                      sanitize.rownames.function = escape,
+                                      math.style.exponents = TRUE)
+            if(!is.null(xtab1.legend)){
+                print.xtable.argz[["add.to.row"]] =
+                    list(list(NROW(xtab1)),
+                         paste0("\\hline\n", paste0("\\multicolumn{4}{l}{", xtab1.legend,
+                                                    "} \\\\\n", collapse="")))
+            }
+                                  
+            print.xtable.args <- modifyList(print.xtable.argz, dots)
+            print.xtable.args <- modifyList(list(x = xtab1), print.xtable.args)
+            
+            texcode <- do.call(print.xtable, print.xtable.args)
+
+            if(!is.null(print.xtable.args$file)) {
+                cat(texcode, file = print.xtable.args$file)
+            }
+            class(texcode) <- "kutable"
+            return(invisible(texcode))
+        } else {
+            print.xtable.argz <- list(type = "html",
+                                      file = NULL,
+                                      print.results = TRUE,
+                                      math.style.exponents = TRUE,
+                                      html.table.attributes = list(border="0"))
+            if(!is.null(xtab1.legend)){
+                print.xtable.argz[["add.to.row"]] =
+                    list(list(NROW(xtab1)), paste0("\n",
+                       paste0("<tr><td colspan=\"4\">", xtab1.legend,
+                              "</td></tr>\n", collapse="")))
+            }
+            print.xtable.args <- modifyList(print.xtable.argz, dots)
+            print.xtable.args <- modifyList(list(x = xtab1), print.xtable.args)
+            htmlcode <- do.call("print.xtable", print.xtable.args)
+            if(!is.null(print.xtable.args$file)) {
+                cat(htmlcode, file = print.xtable.args$file)
+            }
+            class(htmlcode) <- "kutable"
+            return(invisible(htmlcode))
+        }
+    }
+    if(print.results){
+        print(dframe)
+        cat(attr(dframe, "noteinfo"), fill = TRUE)
+    }
+    invisible(dframe)
 }
 
 
-
+##' A print method for kutable objects
+##' 
+##' @method print kutable
+##' @export
+##' @param x   object to be printed
+##' @param ... optional arguments, corrently ignored
+##' @return x unchanged
+print.kutable <- function(x, ...){
+    if(is.character(x)) cat(x)
+    else print(x)
+    x
+}
 
