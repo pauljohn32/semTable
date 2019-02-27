@@ -1398,12 +1398,73 @@ HS.model <- ' visual  =~ x1 + x2 + x3
 
 \begin_layout Plain Layout
 
-              speed   =~ x7 + x8 + x9'
+              speed   =~ x7 + x8 + x9
 \end_layout
 
 \begin_layout Plain Layout
 
-fit1 <- cfa(HS.model, data = HolzingerSwineford1939,
+'
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Because the SEM estimation can be time consuming, we will save a file with
+ the fitted model and re-use it if it is available when the vignette is
+ recompiled.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+if(file.exists(
+\begin_inset Quotes eld
+\end_inset
+
+fit1.rds
+\begin_inset Quotes erd
+\end_inset
+
+)){
+\end_layout
+
+\begin_layout Plain Layout
+
+	fit1 <- readRDS(
+\begin_inset Quotes eld
+\end_inset
+
+fit1.rds
+\begin_inset Quotes erd
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Plain Layout
+
+} else {
+\end_layout
+
+\begin_layout Plain Layout
+
+    fit1 <- cfa(HS.model, data = HolzingerSwineford1939,
 \end_layout
 
 \begin_layout Plain Layout
@@ -1413,6 +1474,20 @@ fit1 <- cfa(HS.model, data = HolzingerSwineford1939,
 
 \begin_layout Plain Layout
 
+    saveRDS(fit1, 
+\begin_inset Quotes eld
+\end_inset
+
+fit1.rds
+\begin_inset Quotes erd
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Plain Layout
+
+}
 \end_layout
 
 \begin_layout Plain Layout
@@ -2469,14 +2544,14 @@ input{tmpout/fit1.t5.tex}
 \end_layout
 
 \begin_layout Section
-Fine tuning model titles, parameter section titles, and variable names
+Fine tuning titles
 \end_layout
 
 \begin_layout Standard
-To emphasize the flexibility of the final display, our final table of this
- section customizes both the column names and the names of the parameter
- sections.
- The output is in Table 
+We've already emphasized the ability to customize variable labels.
+ Now we focus on column names as well as parameter sets.
+ The ability to adjust both the column names and parameter section names
+ is emphasized in Table 
 \begin_inset ERT
 status open
 
@@ -2498,7 +2573,7 @@ status open
 
 \begin_layout Plain Layout
 
-<<results=tex>>=
+<<labl100, results=tex>>=
 \end_layout
 
 \begin_layout Plain Layout
@@ -2596,7 +2671,7 @@ status open
 
 \begin_layout Plain Layout
 
-<<results=tex>>=
+<<labl110, results=tex>>=
 \end_layout
 
 \begin_layout Plain Layout
@@ -2666,6 +2741,74 @@ tab:fit1.t7
 
 \end_layout
 
+\begin_layout Standard
+The ability to fine-tune the selection and labels for fit values is demonstrated
+ in Table 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ref{tab:fit1.t8}
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<labl30, results=tex>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+fit4.t2 <- semTable(fit1, paramSets = c(
+\begin_inset Quotes eld
+\end_inset
+
+loadings
+\begin_inset Quotes erd
+\end_inset
+
+), fits = c("rmsea", "cfi", "chisq"), fitLabels = c(rmsea = "Root M.SQ.E.A",
+ cfi = "CompFitIdx", chisq = "chisq"), type = "latex", table.float = TRUE,
+ caption = 
+\begin_inset Quotes eld
+\end_inset
+
+Customized Fits and Labels
+\begin_inset Quotes erd
+\end_inset
+
+, label = 
+\begin_inset Quotes eld
+\end_inset
+
+tab:fit1.t8
+\begin_inset Quotes erd
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Section
 Two/Multi Group Models
 \end_layout
@@ -2681,18 +2824,62 @@ status open
 
 \begin_layout Plain Layout
 
-<<grps2>>=
+<<grps200>>=
 \end_layout
 
 \begin_layout Plain Layout
 
-## 2 groups
+if(file.exists(
+\begin_inset Quotes eld
+\end_inset
+
+fit1.g.rds
+\begin_inset Quotes erd
+\end_inset
+
+)){
 \end_layout
 
 \begin_layout Plain Layout
 
-fit1.g <- cfa(HS.model, data = HolzingerSwineford1939, std.lv = TRUE, group
+	fit1.g <- readRDS(
+\begin_inset Quotes eld
+\end_inset
+
+fit1.g.rds
+\begin_inset Quotes erd
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Plain Layout
+
+} else {
+\end_layout
+
+\begin_layout Plain Layout
+
+    fit1.g <- cfa(HS.model, data = HolzingerSwineford1939, std.lv = TRUE, group
  = "school", estimator = "MLR")
+\end_layout
+
+\begin_layout Plain Layout
+
+    saveRDS(fit1.g, 
+\begin_inset Quotes eld
+\end_inset
+
+fit1.g.rds
+\begin_inset Quotes erd
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Plain Layout
+
+}
 \end_layout
 
 \begin_layout Plain Layout
@@ -2751,7 +2938,7 @@ status open
 
 \begin_layout Plain Layout
 
-<<results=tex>>=
+<<grps210, results=tex>>=
 \end_layout
 
 \begin_layout Plain Layout
@@ -2816,7 +3003,7 @@ status open
 
 \begin_layout Plain Layout
 
-<<results=tex>>=
+<<grps220, results=tex>>=
 \end_layout
 
 \begin_layout Plain Layout
@@ -2905,7 +3092,7 @@ status open
 
 \begin_layout Plain Layout
 
-<<results=tex>>=
+<<grps220, results=tex>>=
 \end_layout
 
 \begin_layout Plain Layout
@@ -2978,18 +3165,62 @@ status open
 
 \begin_layout Plain Layout
 
-<<results=tex>>=
+<<sbs10>>=
 \end_layout
 
 \begin_layout Plain Layout
 
-## Fit same model with standardization
+if(file.exists(
+\begin_inset Quotes eld
+\end_inset
+
+fit1.std.rds
+\begin_inset Quotes erd
+\end_inset
+
+)){
 \end_layout
 
 \begin_layout Plain Layout
 
-fit1.std <- update(fit1, std.lv = TRUE, std.ov = TRUE, meanstructure = TRUE)
- 
+	fit1.std <- readRDS(
+\begin_inset Quotes eld
+\end_inset
+
+fit1.std.rds
+\begin_inset Quotes erd
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Plain Layout
+
+} else {
+\end_layout
+
+\begin_layout Plain Layout
+
+    fit1.std <- update(fit1, std.lv = TRUE, std.ov = TRUE, meanstructure =
+ TRUE) 
+\end_layout
+
+\begin_layout Plain Layout
+
+    saveRDS(fit1.std, 
+\begin_inset Quotes eld
+\end_inset
+
+fit1.std.rds
+\begin_inset Quotes erd
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Plain Layout
+
+}
 \end_layout
 
 \begin_layout Plain Layout
@@ -3028,7 +3259,7 @@ status open
 
 \begin_layout Plain Layout
 
-<<results=tex>>=
+<<sbs20, results=tex>>=
 \end_layout
 
 \begin_layout Plain Layout
@@ -3119,7 +3350,7 @@ status open
 
 \begin_layout Plain Layout
 
-<<results=tex>>=
+<<sbs30, results=tex>>=
 \end_layout
 
 \begin_layout Plain Layout
@@ -3179,8 +3410,18 @@ Larger Models
 \begin_layout Standard
 The structural equation model (SEM) introduces a regression relationship
  between the latent variables.
- In lavaan, the regression relationships are introduced by the same notation
- as regression in linear models.
+ In 
+\begin_inset Flex Code
+status open
+
+\begin_layout Plain Layout
+lavaan
+\end_layout
+
+\end_inset
+
+, the regression relationships are introduced by the same notation as regression
+ in linear models.
 \end_layout
 
 \begin_layout Standard
@@ -3189,7 +3430,7 @@ status open
 
 \begin_layout Plain Layout
 
-<<>>=
+<<sem00>>=
 \end_layout
 
 \begin_layout Plain Layout
@@ -3219,8 +3460,76 @@ regmodel1 <- 'visual  =~ x1 + x2 + x3
 
 \begin_layout Plain Layout
 
-fit2 <- sem(regmodel1, data = HolzingerSwineford1939, std.lv = FALSE, meanstructu
-re = TRUE)
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<sem10>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+if(file.exists(
+\begin_inset Quotes eld
+\end_inset
+
+fit2.rds
+\begin_inset Quotes erd
+\end_inset
+
+)){
+\end_layout
+
+\begin_layout Plain Layout
+
+	fit2 <- readRDS(
+\begin_inset Quotes eld
+\end_inset
+
+fit2.rds
+\begin_inset Quotes erd
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Plain Layout
+
+} else {
+\end_layout
+
+\begin_layout Plain Layout
+
+    fit2 <- sem(regmodel1, data = HolzingerSwineford1939, std.lv = FALSE,
+ meanstructure = TRUE)
+\end_layout
+
+\begin_layout Plain Layout
+
+    saveRDS(fit2, 
+\begin_inset Quotes eld
+\end_inset
+
+fit2.rds
+\begin_inset Quotes erd
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Plain Layout
+
+}
 \end_layout
 
 \begin_layout Plain Layout
@@ -3239,13 +3548,62 @@ status open
 
 \begin_layout Plain Layout
 
-<<>>=
+<<sem20>>=
 \end_layout
 
 \begin_layout Plain Layout
 
-fit2.std <- update(fit2, std.lv = TRUE, std.ov = TRUE, meanstructure = TRUE)
- 
+if(file.exists(
+\begin_inset Quotes eld
+\end_inset
+
+fit2.std.rds
+\begin_inset Quotes erd
+\end_inset
+
+)){
+\end_layout
+
+\begin_layout Plain Layout
+
+	fit2.std <- readRDS(
+\begin_inset Quotes eld
+\end_inset
+
+fit2.std.rds
+\begin_inset Quotes erd
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Plain Layout
+
+} else {
+\end_layout
+
+\begin_layout Plain Layout
+
+    fit2.std <- update(fit2, std.lv = TRUE, std.ov = TRUE, meanstructure =
+ TRUE)
+\end_layout
+
+\begin_layout Plain Layout
+
+    saveRDS(fit2.std, 
+\begin_inset Quotes eld
+\end_inset
+
+fit2.std.rds
+\begin_inset Quotes erd
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Plain Layout
+
+}
 \end_layout
 
 \begin_layout Plain Layout
@@ -3421,17 +3779,6 @@ regmodel2 <- 'visual  =~ x1 + x2 + x3
 
 \begin_layout Plain Layout
 
-fit3 <- sem(regmodel2, data = HolzingerSwineford1939, std.lv = TRUE,  meanstructu
-re = TRUE)
-\end_layout
-
-\begin_layout Plain Layout
-
-fit3.std <- update(fit3, std.lv = TRUE, std.ov = TRUE)
-\end_layout
-
-\begin_layout Plain Layout
-
 @
 \end_layout
 
@@ -3446,18 +3793,125 @@ status open
 
 \begin_layout Plain Layout
 
-%<<results=tex>>=
+<<sem110>>=
 \end_layout
 
 \begin_layout Plain Layout
 
-%fit3.t1 <-  semTable(fit3, type = c("latex"), columns = c("estsestars",
- "rsquare"))
+if(file.exists(
+\begin_inset Quotes eld
+\end_inset
+
+fit3.rds
+\begin_inset Quotes erd
+\end_inset
+
+)){
 \end_layout
 
 \begin_layout Plain Layout
 
-%@
+	fit3 <- readRDS(
+\begin_inset Quotes eld
+\end_inset
+
+fit3.rds
+\begin_inset Quotes erd
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Plain Layout
+
+} else {
+\end_layout
+
+\begin_layout Plain Layout
+
+    fit3 <- sem(regmodel2, data = HolzingerSwineford1939, std.lv = TRUE,
+  meanstructure = TRUE)
+\end_layout
+
+\begin_layout Plain Layout
+
+    saveRDS(fit3, 
+\begin_inset Quotes eld
+\end_inset
+
+fit3.rds
+\begin_inset Quotes erd
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+if(file.exists(
+\begin_inset Quotes eld
+\end_inset
+
+fit3.std.rds
+\begin_inset Quotes erd
+\end_inset
+
+)){
+\end_layout
+
+\begin_layout Plain Layout
+
+	fit3.std <- readRDS(
+\begin_inset Quotes eld
+\end_inset
+
+fit3.std.rds
+\begin_inset Quotes erd
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Plain Layout
+
+} else {
+\end_layout
+
+\begin_layout Plain Layout
+
+    fit3.std <- update(fit3, std.lv = TRUE, std.ov = TRUE)
+\end_layout
+
+\begin_layout Plain Layout
+
+    saveRDS(fit3.std, 
+\begin_inset Quotes eld
+\end_inset
+
+fit3.std.rds
+\begin_inset Quotes erd
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+@
 \end_layout
 
 \end_inset
@@ -3603,12 +4057,66 @@ status open
 
 \begin_layout Plain Layout
 
-fit3.g2 <- sem(regmodel1, data = HolzingerSwineford1939, group = "school")
+<<sem200>>=
 \end_layout
 
 \begin_layout Plain Layout
 
-@
+if(file.exists(
+\begin_inset Quotes eld
+\end_inset
+
+fit3.g2.rds
+\begin_inset Quotes erd
+\end_inset
+
+)){
+\end_layout
+
+\begin_layout Plain Layout
+
+	fit3.g2 <- readRDS(
+\begin_inset Quotes eld
+\end_inset
+
+fit3.g2.rds
+\begin_inset Quotes erd
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Plain Layout
+
+} else {
+\end_layout
+
+\begin_layout Plain Layout
+
+    fit3.g2 <- sem(regmodel1, data = HolzingerSwineford1939, group = "school")
+\end_layout
+
+\begin_layout Plain Layout
+
+    saveRDS(fit3.g2, 
+\begin_inset Quotes eld
+\end_inset
+
+fit3.g2.rds
+\begin_inset Quotes erd
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+#
 \end_layout
 
 \end_inset
@@ -3689,120 +4197,6 @@ tab:fit3.g2
 
 \end_layout
 
-\begin_layout Subsection*
-Fits
-\end_layout
-
-\begin_layout Standard
-We created another example in order to demonstrate additional features with
- fits and fit labels.
-\end_layout
-
-\begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-<<>>=
-\end_layout
-
-\begin_layout Plain Layout
-
-model <- "factor =~ .7*y1 + .7*y2 + .7*y3 + .7*y4
-\end_layout
-
-\begin_layout Plain Layout
-
-                 y1 | -1*t1 + 1*t2
-\end_layout
-
-\begin_layout Plain Layout
-
-                 y2 | -.5*t1 + 1*t2
-\end_layout
-
-\begin_layout Plain Layout
-
-                 y3 | -.2*t1 + 1*t2
-\end_layout
-
-\begin_layout Plain Layout
-
-                 y4 | -1*t1 + 1*t2"
-\end_layout
-
-\begin_layout Plain Layout
-
-dat <- simulateData(model, sample.nobs = 300)
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-testmodel <- "ExampleFactor =~ y1 + y2 + y3 + y4"
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\begin_layout Plain Layout
-
-fit4 <- cfa(testmodel, data = dat, ordered = colnames(dat),
-\end_layout
-
-\begin_layout Plain Layout
-
-            std.lv = FALSE)
-\end_layout
-
-\begin_layout Plain Layout
-
-@
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-<<results=tex>>=
-\end_layout
-
-\begin_layout Plain Layout
-
-fit4.t2 <- semTable(fit4, paramSets = c(
-\begin_inset Quotes eld
-\end_inset
-
-loadings
-\begin_inset Quotes erd
-\end_inset
-
-), fits = c("rmsea", "cfi", "chisq"), fitLabels = c(rmsea = "Root M.SQ.E.A",
- cfi = "CompFitIdx", chisq = "chisq"), type = "latex")
-\end_layout
-
-\begin_layout Plain Layout
-
-@
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
 \begin_layout Section*
 Mediation Model
 \end_layout
@@ -3822,7 +4216,7 @@ status open
 
 \begin_layout Plain Layout
 
-<<>>=
+<<sem500>>=
 \end_layout
 
 \begin_layout Plain Layout
@@ -3945,13 +4339,134 @@ model5 <-
 
 \begin_layout Plain Layout
 
-fit5 <- sem(model5, data=PoliticalDemocracy)
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<sem510>>=
 \end_layout
 
 \begin_layout Plain Layout
 
-fit5boot <- sem(model5, data=PoliticalDemocracy, se = "bootstrap", bootstrap
- = 100)
+if(file.exists(
+\begin_inset Quotes eld
+\end_inset
+
+fit5.rds
+\begin_inset Quotes erd
+\end_inset
+
+)){
+\end_layout
+
+\begin_layout Plain Layout
+
+	fit5 <- readRDS(
+\begin_inset Quotes eld
+\end_inset
+
+fit5.rds
+\begin_inset Quotes erd
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Plain Layout
+
+} else {
+\end_layout
+
+\begin_layout Plain Layout
+
+    fit5 <- sem(model5, data=PoliticalDemocracy)
+\end_layout
+
+\begin_layout Plain Layout
+
+    saveRDS(fit5, 
+\begin_inset Quotes eld
+\end_inset
+
+fit5.rds
+\begin_inset Quotes erd
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+if(file.exists(
+\begin_inset Quotes eld
+\end_inset
+
+fit5boot.rds
+\begin_inset Quotes erd
+\end_inset
+
+)){
+\end_layout
+
+\begin_layout Plain Layout
+
+	fit5boot <- readRDS(
+\begin_inset Quotes eld
+\end_inset
+
+fit5boot.rds
+\begin_inset Quotes erd
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Plain Layout
+
+} else {
+\end_layout
+
+\begin_layout Plain Layout
+
+    fit5boot <- sem(model5, data=PoliticalDemocracy, se = "bootstrap", bootstrap
+ = 500)
+\end_layout
+
+\begin_layout Plain Layout
+
+    saveRDS(fit5, 
+\begin_inset Quotes eld
+\end_inset
+
+fit5.rds
+\begin_inset Quotes erd
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Plain Layout
+
+}
 \end_layout
 
 \begin_layout Plain Layout
@@ -3987,7 +4502,7 @@ status open
 
 \begin_layout Plain Layout
 
-<<results=tex>>=
+<<sem520,results=tex>>=
 \end_layout
 
 \begin_layout Plain Layout
@@ -4056,7 +4571,7 @@ status open
 
 \begin_layout Plain Layout
 
-<<results=tex>>=
+<<sem530>>=
 \end_layout
 
 \begin_layout Plain Layout
@@ -4151,8 +4666,76 @@ model5b <-
 
 \begin_layout Plain Layout
 
-fit5b <- sem(model5b, data=PoliticalDemocracy, se = "bootstrap", bootstrap
- = 100)
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+<<sem550>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+if(file.exists(
+\begin_inset Quotes eld
+\end_inset
+
+fit5b.rds
+\begin_inset Quotes erd
+\end_inset
+
+)){
+\end_layout
+
+\begin_layout Plain Layout
+
+	fit5b <- readRDS(
+\begin_inset Quotes eld
+\end_inset
+
+fit5.rds
+\begin_inset Quotes erd
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Plain Layout
+
+} else {
+\end_layout
+
+\begin_layout Plain Layout
+
+    fit5b <- sem(model5b, data=PoliticalDemocracy, se = "bootstrap", bootstrap
+ = 500)
+\end_layout
+
+\begin_layout Plain Layout
+
+    saveRDS(fit5b, 
+\begin_inset Quotes eld
+\end_inset
+
+fit5b.rds
+\begin_inset Quotes erd
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Plain Layout
+
+}
 \end_layout
 
 \begin_layout Plain Layout
