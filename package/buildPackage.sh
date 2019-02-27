@@ -2,14 +2,19 @@ PACKAGE="semTable"
 
 VERSION=$(awk -F": +" '/^Version/ { print $2 }' ${PACKAGE}/DESCRIPTION)
 
+cd ${PACKAGE}/vignettes
+lyx -f -e sweave semTable.lyx
+cd ../../
+
+
 rm -rf ${PACKAGE}.gitex;
 
 mkdir ${PACKAGE}.gitex
 cd ${PACKAGE}
 
-# cd vignettes
-# lyx -f -e sweave variablekey.lyx;
-# cd ..
+##cd vignettes
+##lyx -f -e sweave semTable.lyx;
+##cd ..
 
 ## copies UNCOMMITTED but TRACKED files.
 git ls-files . | tar cT - | tar -x -C "../${PACKAGE}.gitex"
@@ -17,14 +22,15 @@ cd ..
 
 # cd ${PACKAGE}.gitex/vignettes
 
-
 # cp -f variablekey.pdf ../inst/doc
 # cd ../..
 
 R --vanilla -f runRoxygen2.R
 
 
-R CMD build ${PACKAGE}.gitex --resave-data
+/usr/lib/R/bin/R --no-site-file --no-environ --no-save --no-restore --quiet  \
+                 CMD build "${PACKAGE}.gitex"  --no-resave-data --no-manual \
+                 --compact-vignettes="both"
 
 
 read -p "Run check: OK? (y or n)" result

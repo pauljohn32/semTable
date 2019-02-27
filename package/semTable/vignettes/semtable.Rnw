@@ -89,11 +89,19 @@ footskip=1.5\baselineskip,
 
 \input{addressFooter.tex}
 
+<<texcopy, include=FALSE,echo=FALSE,results=hide>>=
+if(!file.exists("theme")) dir.create("theme")
+library(stationery)
+## If theme directory does not have required images or TeX files
+## we need to retrieve them and put them in "theme" directory. 
+texfiles <- c("reportPreambleSweavel.tex", "reportPreambleHeader.tex", "preambleFooter.tex")
+getFiles(texfiles, pkg = "stationery")
+@
+
 % Please leave this code
 <<ignoremeRsetup, echo=FALSE, include=FALSE, results=hide>>=
 tdir <- "tmpout"
 if(!dir.exists(tdir)) dir.create(tdir, showWarnings=FALSE)
-library(stationery)
 opts.orig <- options()
 options(width=80, prompt=" ", continue="  ")
 options(useFancyQuotes = FALSE) 
@@ -103,19 +111,7 @@ options(SweaveHooks=list(fig=function() par(ps=10)))
 pdf.options(onefile=FALSE,family="Times",pointsize=10)
 @
 \fvset{listparameters={\setlength{\topsep}{0em}}}
-\SweaveOpts{prefix.string=tmpout/t, split=TRUE, ae=FALSE, height=4, width=6}
-
-% We need 2 image files for logos, top left (logoleft) and right
-% (logo-vert). 
-% You can manually copy your desired image files
-% "logoleft.pdf" and "logo-vert.pdf" into the theme folder. 
-% Or run this to retrieve or create them:
-<<texcopy, include=FALSE, echo=FALSE, results=hide>>=
-## The logos we need are
-logos <- c("logoleft.pdf", "logo-vert.pdf")
-## This will retrieve logo files from a designated package:
-getFiles(logos, pkg = "crmda", overwrite = TRUE)
-@
+\SweaveOpts{prefix.string=tmpout/t, split=FALSE, ae=FALSE, height=4, width=6}
 
 %The listings class used here allows within-document style.
 %See the instructions file for details and examples. One can alter R input and 

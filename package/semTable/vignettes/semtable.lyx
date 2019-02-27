@@ -6,8 +6,10 @@
 \origin unavailable
 \textclass extarticle
 \begin_preamble
-% Following comment is required. Do not delete it.
-%\usepackage{Sweave}
+%\VignetteIndexEntry{semtable}
+%\VignetteEngine{Sweave}
+%\VignetteBuilder{stationery::rnw2pdf}
+%\usepackage{Sweave}% Following comment is required. Do not delete it.
 
 \usepackage[includehead,includefoot]{geometry}
 \geometry{
@@ -269,6 +271,73 @@ status open
 
 \begin_layout Plain Layout
 
+<<texcopy, include=FALSE,echo=FALSE,results=hide>>=
+\end_layout
+
+\begin_layout Plain Layout
+
+if(!file.exists(
+\begin_inset Quotes eld
+\end_inset
+
+theme
+\begin_inset Quotes erd
+\end_inset
+
+)) dir.create(
+\begin_inset Quotes eld
+\end_inset
+
+theme
+\begin_inset Quotes erd
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Plain Layout
+
+library(stationery)
+\end_layout
+
+\begin_layout Plain Layout
+
+## If theme directory does not have required images or TeX files
+\end_layout
+
+\begin_layout Plain Layout
+
+## we need to retrieve them and put them in "theme" directory.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+texfiles <- c("reportPreambleSweavel.tex", "reportPreambleHeader.tex", "preambleFo
+oter.tex")
+\end_layout
+
+\begin_layout Plain Layout
+
+getFiles(texfiles, pkg = "stationery")
+\end_layout
+
+\begin_layout Plain Layout
+
+@
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
 % Please leave this code
 \end_layout
 
@@ -293,11 +362,6 @@ tmpout
 \begin_layout Plain Layout
 
 if(!dir.exists(tdir)) dir.create(tdir, showWarnings=FALSE)
-\end_layout
-
-\begin_layout Plain Layout
-
-library(stationery)
 \end_layout
 
 \begin_layout Plain Layout
@@ -355,89 +419,7 @@ topsep}{0em}}}
 
 
 \backslash
-SweaveOpts{prefix.string=tmpout/t, split=TRUE, ae=FALSE, height=4, width=6}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-% We need 2 image files for logos, top left (logoleft) and right
-\end_layout
-
-\begin_layout Plain Layout
-
-% (logo-vert).
- 
-\end_layout
-
-\begin_layout Plain Layout
-
-% You can manually copy your desired image files
-\end_layout
-
-\begin_layout Plain Layout
-
-% 
-\begin_inset Quotes eld
-\end_inset
-
-logoleft.pdf
-\begin_inset Quotes erd
-\end_inset
-
- and 
-\begin_inset Quotes eld
-\end_inset
-
-logo-vert.pdf
-\begin_inset Quotes erd
-\end_inset
-
- into the theme folder.
- 
-\end_layout
-
-\begin_layout Plain Layout
-
-% Or run this to retrieve or create them:
-\end_layout
-
-\begin_layout Plain Layout
-
-<<texcopy, include=FALSE, echo=FALSE, results=hide>>=
-\end_layout
-
-\begin_layout Plain Layout
-
-## The logos we need are
-\end_layout
-
-\begin_layout Plain Layout
-
-logos <- c("logoleft.pdf", "logo-vert.pdf")
-\end_layout
-
-\begin_layout Plain Layout
-
-## This will retrieve logo files from a designated package:
-\end_layout
-
-\begin_layout Plain Layout
-
-getFiles(logos, pkg = "crmda", overwrite = TRUE)
-\end_layout
-
-\begin_layout Plain Layout
-
-@
+SweaveOpts{prefix.string=tmpout/t, split=FALSE, ae=FALSE, height=4, width=6}
 \end_layout
 
 \end_inset

@@ -8,8 +8,9 @@ Authors@R: c(person("Paul","Johnson",email="pauljohn@ku.edu",role = c("aut", "cr
 Maintainer: Paul Johnson <pauljohn@ku.edu>
 Description: Structural Equation Modeling tables. 
 License: GPL-2
-Depends: R (>= 3.0)
-Imports: stats, utils, kutils, xtable, lavaan, plyr
+Depends: R (>= 3.0), stationery
+Imports: stats, utils, kutils, xtable, lavaan, plyr, stationery
 Suggests: rockchalk
 RoxygenNote: 6.1.1
 LazyData: TRUE
+VignetteBuilder: stationery
