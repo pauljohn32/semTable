@@ -313,13 +313,103 @@ library(stationery)
 
 \begin_layout Plain Layout
 
-texfiles <- c("reportPreambleSweavel.tex", "reportPreambleHeader.tex", "preambleFo
-oter.tex")
+texfiles <- c("guidePreambleHeader.tex", "guidePreambleSweavel.tex
+\begin_inset Quotes erd
+\end_inset
+
+, "preambleFooter.tex")
 \end_layout
 
 \begin_layout Plain Layout
 
 getFiles(texfiles, pkg = "stationery")
+\end_layout
+
+\begin_layout Plain Layout
+
+logos <- c("logoleft.pdf", "logo-vert.pdf")
+\end_layout
+
+\begin_layout Plain Layout
+
+## This will retrieve logo files from a designated package:
+\end_layout
+
+\begin_layout Plain Layout
+
+try(getFiles(logos, pkg = "crmda", overwrite = FALSE))
+\end_layout
+
+\begin_layout Plain Layout
+
+## If you do not have a file after that, 
+\end_layout
+
+\begin_layout Plain Layout
+
+## the following will manufacture a blank images for placeholders
+\end_layout
+
+\begin_layout Plain Layout
+
+if(!file.exists(
+\begin_inset Quotes eld
+\end_inset
+
+theme/logoleft.pdf
+\begin_inset Quotes erd
+\end_inset
+
+)){
+\end_layout
+
+\begin_layout Plain Layout
+
+  blankPDF(file = "theme/logoleft.pdf", height=1.2, width=1.2, messg = 
+\begin_inset Quotes eld
+\end_inset
+
+
+\begin_inset Quotes erd
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+if(!file.exists(
+\begin_inset Quotes eld
+\end_inset
+
+theme/logo-vert.pdf
+\begin_inset Quotes erd
+\end_inset
+
+)){
+\end_layout
+
+\begin_layout Plain Layout
+
+  blankPDF(file = "theme/logo-vert.pdf", height=2, width=1.5, messg = 
+\begin_inset Quotes eld
+\end_inset
+
+
+\begin_inset Quotes erd
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Plain Layout
+
+}
 \end_layout
 
 \begin_layout Plain Layout

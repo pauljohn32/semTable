@@ -132,6 +132,7 @@
 ##' @importFrom plyr mapvalues
 ##' @importFrom kutils checkCoercion
 ##' @importFrom kutils modifyVector
+##' @importFrom stationery rnw2pdf
 ##' @return Markup for SEM table. Includes an attribute
 ##'     "markedResults", which can be converted to other markup
 ##'     formats by the function markupConvert.
