@@ -1,8 +1,8 @@
 Package: semTable 
 Type: Package
 Title: Structural Equation Modeling Tables 
-Version: 0.9
-Date: 2019-02-17
+Version: 0.99
+Date: 2019-02-27
 Authors@R: c(person("Paul","Johnson",email="pauljohn@ku.edu",role = c("aut", "cre")),
 		   person("Benjamin","Kite",email="bakite@ku.edu",role="aut"))
 Maintainer: Paul Johnson <pauljohn@ku.edu>
