@@ -1079,8 +1079,9 @@ semTable <- function(object, file = NULL, paramSets = "all", paramSetLabels,
             names(colLabels) <- mname
         }
     } else {
-        if (length(columns) != length(object) || names(columns) != names(object)){
+        if (length(columns) != length(object) || !all.equal(names(columns), names(object))){
             MESSG <- "object list and columns list must match"
+            stop(MESSG)
         }
         columns <- lapply(columns, function(x){
             names(x) <- gsub("est(se)", "estse", names(x))

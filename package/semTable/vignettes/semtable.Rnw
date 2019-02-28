@@ -83,14 +83,14 @@ footskip=1.5\baselineskip,
   title={SEM Tables with the semTable package for R},
   leftlogo={theme/logoleft.pdf},
   rightlogo={theme/logo-vert.pdf},
-  number=52,
+  number=50,
 }
 \guidehdr
 
 \input{addressFooter.tex}
 
 <<texcopy, include=FALSE,echo=FALSE,results=hide>>=
-if(!file.exists("theme")) dir.create("theme")
+if(!dir.exists("theme")) dir.create("theme")
 library(stationery)
 ## If theme directory does not have required images or TeX files
 ## we need to retrieve them and put them in "theme" directory. 
@@ -520,7 +520,7 @@ demonstrate the fact that it is possible to select different columns
 for the two models, we offer Table \ref{tab:fit1.t2.2}.
 
 <<sbs30, results=tex>>=
-fit1.t2.2 <- semTable(list("Ordinary" = fit1, "Standardized" = fit1.std), columns = list("Ordinary" = c("estse", "z", "p"), "Standardized" = c("estse")), columnLabels = c(estse = "Est(S.E.)", z = "Z", se = "SE"), file = file.path(tempdir, "fit1.t2.2"), table.float = TRUE, longtable = TRUE, caption = "Customizing Column Selections by Model", label = "tab:fit1.t2.s" )
+fit1.t2.2 <- semTable(list("Ordinary" = fit1, "Standardized" = fit1.std), columns = list("Ordinary" = c("estse", "z", "p"), "Standardized" = c("estse")), columnLabels = c(estse = "Est(S.E.)", z = "Z", se = "SE"), file = file.path(tempdir, "fit1.t2.2"), table.float = TRUE, longtable = TRUE, caption = "Customizing Column Selections by Model", label = "tab:fit1.t2.2" )
 @
 
 \section{Larger Models}
@@ -603,7 +603,7 @@ combines four model columns. Note that the result table handles the
 problem that some estimates are not included in each model.
 
 <<fit3.std.t1, results=tex>>=
-fit3.std.t1 <- semTable(list("Mod 1" = fit2, "Mod 1 std" = fit2.std, "Mod 2" = fit3, "Mod 3 std" = fit3.std), paramSets = c("loadings", "slopes", "intercepts", "residualvariances", "latentvariances", "latentcovariances"),  columns = c("estsestars"), type = "latex",              file = file.path(tempdir, "fit3.std.t1"), table.float = TRUE, longtable = TRUE, caption = "Several SEMs with Differing Parameters", label = "tab:fit3.std.t1")
+fit3.std.t1 <- semTable(list("Mod 1" = fit2, "Mod 1 std" = fit2.std, "Mod 2" = fit3, "Mod 3 std" = fit3.std), paramSets = c("loadings", "slopes", "intercepts", "residualvariances", "latentvariances", "latentcovariances"),  columns = c("estsestars"), type = "latex", file = file.path(tempdir, "fit3.std.t1"), table.float = TRUE, longtable = TRUE, caption = "Several SEMs with Differing Parameters", label = "tab:fit3.std.t1")
 @
 
 SEM estimates can also be obtained for the two group model, as illustrated
@@ -658,6 +658,9 @@ model5 <-
     '
 @
 
+Because this model can take a while to estimate, we use the saved
+copies if they are available.
+
 <<sem510>>=
 if(file.exists("fit5.rds")){
 	fit5 <- readRDS("fit5.rds")
@@ -670,20 +673,18 @@ if(file.exists("fit5boot.rds")){
 	fit5boot <- readRDS("fit5boot.rds")
 } else {
     fit5boot <- sem(model5, data=PoliticalDemocracy, se = "bootstrap", bootstrap = 500)
-    saveRDS(fit5, "fit5.rds")
+    saveRDS(fit5boot, "fit5boot.rds")
 }
 @
 
 The ML and bootstrapped estimates are compared in Table \ref{tab:fit5t2}.
 
 <<sem520,results=tex>>=
-fit5.t2 <- semTable(list("ML estimates" = fit5, "Bootstrapped SE" = fit5boot),
-      	   columns = c("estsestars", "rsquare"), file = file.path(tempdir, "fit5.2"), type = "latex",
-      	   longtable = TRUE, table.float = TRUE, caption = "Comparing ML and Bootstrapped Estimates", label = "tab:fit5t2")
+fit5.t2 <- semTable(list("ML estimates" = fit5, "Bootstrapped SE" = fit5boot), columns = c("estsestars", "rsquare"), file = file.path(tempdir, "fit5.2"), type = "latex", longtable = TRUE, table.float = TRUE, caption = "Comparing ML and Bootstrapped Estimates", label = "tab:fit5t2")
 @
 
 Now we remove some indicators from the model and re-fit. The results
-are presented in Table \ref{fit5.5b}.
+are presented in Table \ref{tab:fit5.5b}.
 
 <<sem530>>=
 ##'
@@ -705,6 +706,8 @@ model5b <-
     total := c + (a*b)
     '
 @
+
+Again, we use the saved fits, or if they are unavailable, we re-calculate.
 
 <<sem550>>=
 if(file.exists("fit5b.rds")){
@@ -741,14 +744,14 @@ does work, as promised, for a wide variety of contexts.
 
 Please leave this next code chunk if you are producing a guide document. 
 
-<<sessioninfo, echo=F>>=
+<<sessioninfo, echo=FALSE>>=
 sessionInfo()
 if(!is.null(warnings())){
     print("Warnings:")
     warnings()}
 @
 
-<<RoptionsRestore, include=F>>=
+<<RoptionsRestore, include=FALSE, results=hide, echo=FALSE>>=
 ## Don't delete this. It puts the interactive session options
 ## back the way they were. If this is compiled within a session
 ## it is vital to do this.

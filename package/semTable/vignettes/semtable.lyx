@@ -234,7 +234,7 @@ guidesetup{%
 
 \begin_layout Plain Layout
 
-  number=52,
+  number=50,
 \end_layout
 
 \begin_layout Plain Layout
@@ -276,7 +276,7 @@ status open
 
 \begin_layout Plain Layout
 
-if(!file.exists(
+if(!dir.exists(
 \begin_inset Quotes eld
 \end_inset
 
@@ -3458,7 +3458,7 @@ Customizing Column Selections by Model
 \begin_inset Quotes eld
 \end_inset
 
-tab:fit1.t2.s
+tab:fit1.t2.2
 \begin_inset Quotes erd
 \end_inset
 
@@ -4070,8 +4070,8 @@ latentcovariances
 \begin_inset Quotes erd
 \end_inset
 
-),  columns = c("estsestars"), type = "latex",              file = file.path(temp
-dir, "fit3.std.t1"), table.float = TRUE, longtable = TRUE, caption = 
+),  columns = c("estsestars"), type = "latex", file = file.path(tempdir,
+ "fit3.std.t1"), table.float = TRUE, longtable = TRUE, caption = 
 \begin_inset Quotes eld
 \end_inset
 
@@ -4420,6 +4420,11 @@ model5 <-
 \end_layout
 
 \begin_layout Standard
+Because this model can take a while to estimate, we use the saved copies
+ if they are available.
+\end_layout
+
+\begin_layout Standard
 \begin_inset ERT
 status open
 
@@ -4525,11 +4530,11 @@ fit5boot.rds
 
 \begin_layout Plain Layout
 
-    saveRDS(fit5, 
+    saveRDS(fit5boot, 
 \begin_inset Quotes eld
 \end_inset
 
-fit5.rds
+fit5boot.rds
 \begin_inset Quotes erd
 \end_inset
 
@@ -4580,17 +4585,8 @@ status open
 \begin_layout Plain Layout
 
 fit5.t2 <- semTable(list("ML estimates" = fit5, "Bootstrapped SE" = fit5boot),
-\end_layout
-
-\begin_layout Plain Layout
-
-      	   columns = c("estsestars", "rsquare"), file = file.path(tempdir,
- "fit5.2"), type = "latex",
-\end_layout
-
-\begin_layout Plain Layout
-
-      	   longtable = TRUE, table.float = TRUE, caption = 
+ columns = c("estsestars", "rsquare"), file = file.path(tempdir, "fit5.2"),
+ type = "latex", longtable = TRUE, table.float = TRUE, caption = 
 \begin_inset Quotes eld
 \end_inset
 
@@ -4629,7 +4625,7 @@ status open
 
 
 \backslash
-ref{fit5.5b}
+ref{tab:fit5.5b}
 \end_layout
 
 \end_inset
@@ -4744,6 +4740,10 @@ model5b <-
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+Again, we use the saved fits, or if they are unavailable, we re-calculate.
 \end_layout
 
 \begin_layout Standard
@@ -4946,7 +4946,7 @@ status open
 
 \begin_layout Plain Layout
 
-<<sessioninfo, echo=F>>=
+<<sessioninfo, echo=FALSE>>=
 \end_layout
 
 \begin_layout Plain Layout
@@ -4985,7 +4985,7 @@ status open
 
 \begin_layout Plain Layout
 
-<<RoptionsRestore, include=F>>=
+<<RoptionsRestore, include=FALSE, results=hide, echo=FALSE>>=
 \end_layout
 
 \begin_layout Plain Layout
