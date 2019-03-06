@@ -1,12 +1,12 @@
 Package: semTable 
 Type: Package
 Title: Structural Equation Modeling Tables 
-Version: 1.0
-Date: 2019-02-28
+Version: 1.1
+Date: 2019-03-06
 Authors@R: c(person("Paul","Johnson",email="pauljohn@ku.edu",role = c("aut", "cre")),
 		   person("Benjamin","Kite",email="bakite@ku.edu",role="aut"))
 Maintainer: Paul Johnson <pauljohn@ku.edu>
-Description: Structural Equation Modeling tables. 
+Description: Structural equation modeling (SEM) tables. 
 License: GPL-2
 Depends: R (>= 3.0)
 Imports: stats, utils, kutils, xtable, lavaan, plyr, stationery

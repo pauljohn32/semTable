@@ -119,8 +119,6 @@ detectNested <- function(models){
 ##'     vector created by xtable. If type = "html", a vector of HTML
 ##'     markup created by xtable.
 ##' @examples
-##' \donttest{
-##' ## These run longer than 5 seconds
 ##' library(lavaan)
 ##' library(xtable)
 ##' set.seed(123)
@@ -128,34 +126,33 @@ detectNested <- function(models){
 ##' f1 ~~ 1*f1"
 ##' genmodel2 <- "f1 =~ .7*v1 + .7*v2 + .7*v3 + .7*v4 + .7*v5 + .2*v6
 ##' f1 ~~ 1*f1"
-##'
+##' ##'
 ##' dat1 <- simulateData(genmodel, sample.nobs = 300)
 ##' dat2 <- simulateData(genmodel2, sample.nobs = 300)
 ##' dat1$group <- 0
 ##' dat2$group <- 1
 ##' dat <- rbind(dat1, dat2)
-##'
-##' congModel <- "
+##' ## In order from less constrained to restricted
+##' ## Model cc1 configural model
+##' cc1.model <- "
 ##'               f1 =~ 1*v1 + v2 + v3 + v4 + v5 + v6
 ##'     		  f1 ~~ f1
 ##'     		  f1 ~0*1
 ##'     		 "
-##' weakModel <- "
-##'               f1 =~ 1*v1 + c(L2,L2)*v2 + c(L3,L3)*v3 + c(L4,L4)*v4 + c(L5,L5)*v5 + c(L6,L6)*v6
-##'     		  f1 ~~ f1
-##'     		  f1 ~0*1
-##'     		"
-##' partialweakModel <- "
+##' ## Model2: cc2 partial weak model (AKA partial metric)
+##' cc2.model <- "
 ##'               f1 =~ 1*v1 + c(L2,L2)*v2 + c(L3,L3)*v3 + c(L4,L4)*v4 + c(L5,L5)*v5 + v6
 ##'     		  f1 ~~ f1
 ##'     		  f1 ~0*1
 ##'     		"
-##' partialweakModel2 <- "
-##'               f1 =~ 1*v1 + c(L2,L2)*v2 + c(L3,L3)*v3 + c(L4,L4)*v4 + v5 + v6
-##'     		  f1 ~~ f1
-##'     		  f1 ~0*1
+##' ## Model 3: weak model (AKA metric)
+##' cc3.model <- "
+##'             f1 =~ 1*v1 + c(L2,L2)*v2 + c(L3,L3)*v3 + c(L4,L4)*v4 + c(L5,L5)*v5 + c(L6,L6)*v6
+##'     		f1 ~~ f1
+##'     		 f1 ~0*1
 ##'     		"
-##' partialstrongModel1 <- "
+##' ## Model 4: scalar model (AKA strong)
+##' cc4.model <- "
 ##'               f1 =~ 1*v1 + c(L2,L2)*v2 + c(L3,L3)*v3 + c(L4,L4)*v4 + c(L5,L5)*v5 + v6
 ##'     		  f1 ~~ f1
 ##'     		  f1 ~ c(0,NA)*1
@@ -166,30 +163,43 @@ detectNested <- function(models){
 ##'     		  v5 ~ c(I5,I5)*1
 ##'     		  v6 ~ c(I6,I6)*1
 ##'     		"
-##' cc1 <- cfa(congModel, data=dat, group="group", meanstructure=TRUE, estimator = "MLR")
-##' cc2 <- cfa(weakModel, data=dat, group="group", meanstructure=TRUE, estimator = "MLR")
-##' cc21 <- cfa(partialweakModel, data=dat, group="group", meanstructure=TRUE, estimator = "MLR")
-##' cc3 <- cfa(partialstrongModel1, data=dat, group="group", meanstructure=TRUE, estimator = "MLR")
-##'
-##' models <- list(cc1, cc2, cc21, cc3)
+##' 
+##' cc1 <-  tryCatch(readRDS(system.file("cfa/cc1X.rds", package = "semTable")),
+##'                  error = function(e) cfa(cc1.model, data=dat, group="group",
+##'                                          meanstructure=TRUE, estimator = "MLR"))
+##' cc2 <- tryCatch(readRDS(system.file("cfa/cc2X.rds", package = "semTable")),
+##'                 error = function(e) cfa(cc2.model, data=dat, group="group",
+##'                                         meanstructure=TRUE, estimator = "MLR"))
+##' cc3 <- tryCatch(readRDS(system.file("cfa/cc3X.rds", package = "semTable")),
+##'                  error = function(e) cfa(cc3.model, data=dat, group="group",
+##'                                          meanstructure=TRUE, estimator = "MLR"))
+##' cc4 <- tryCatch(readRDS(system.file("cfa/cc4X.rds", package = "semTable")),
+##'                 error = function(e) cfa(cc4.model, data=dat, group="group",
+##'                                         meanstructure=TRUE, estimator = "MLR"))
+##' 
+##' models <- list(cc1, cc2, cc3, cc4)
 ##' ## Note, nesting is not specified, so built-in nesting detection applies
 ##' compareLavaan(models)
 ##' compareLavaan(models, type = "latex")
 ##' compareLavaan(models, type = "html")
-##'
+##' ##'
 ##' ## Now we specify model labels in the list
-##' models <- list("Configural" = cc1, "Metric" = cc2, "PartialMetric" = cc21, "Scalar" = cc3)
+##' models <- list("Configural" = cc1,  "PartialMetric" = cc2, "Metric" = cc3, "Scalar" = cc4)
 ##' ## The model labels are used in the nesting parameter
-##' compareLavaan(models, nesting = "Configural > Metric + PartialMetric > Scalar")
+##' compareLavaan(models, nesting = "Configural > PartialMetric > Metric > Scalar")
+##' ##' Previous incorrect, treat cc2 and cc3 as children of cc1 instead:
+##' compareLavaan(models, nesting = "Configural > PartialMetric + Metric > Scalar")
+##' ##' 
+##' compareLavaan(models, fitmeas = c("chisq", "df", "cfi", "rmsea", "tli"),
+##'               nesting = "Configural > Metric + PartialMetric > Scalar")
 ##' 
 ##' compareLavaan(models, fitmeas = c("chisq", "df", "cfi", "rmsea", "tli"),
-##'             nesting = "Configural > Metric + PartialMetric > Scalar")
-##'
+##'              nesting = "Configural > PartialMetric + Metric > Scalar")
+##' ##'
 ##' ## Creates output file
 ##' ## compareLavaan(models, fitmeas = c("chisq", "df", "cfi", "rmsea", "tli"),
 ##' ## nesting = "Configural > Metric + PartialMetric > Scalar", type = "tex",
 ##' ## file = "/tmp/table.tex")
-##' }
 compareLavaan <- function(models,
                        fitmeas = c("chisq", "df",  "pvalue", "rmsea", "cfi", "tli", "srmr", "aic", "bic"),
                        nesting = NULL, scaled = TRUE, chidif = TRUE, digits = 3,  ...)
@@ -215,14 +225,12 @@ compareLavaan <- function(models,
     if(is.null(nesting)){
         nestedPairs <- detectNested(models)
     }else{
-        xx <- unlist(strsplit(nesting, " "))
+        xx <- unlist(strsplit(nesting, "\\s+"))
         ops <- c("+", ">")
         mods <- names(models)
-        xx %in% c(ops, mods)
-        if (prod(xx %in% c(ops, mods)) != 1){
-            MESSG <- paste("nesting parameter has illegal symbols.",
-                       "Only \">\", \"+\" are allowed and model names must",
-                       "match the names in the model list")
+        if (any(!xx %in% c(ops, mods))) {
+            MESSG <- paste("nesting parameter has unexpected symbols:",
+                          paste(xx[!xx %in% c(ops, mods)], collapse = " "))
             stop(MESSG)
         }
         yy <- grep(">", xx)
