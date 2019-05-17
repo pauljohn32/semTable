@@ -163,17 +163,18 @@ detectNested <- function(models){
 ##'     		  v5 ~ c(I5,I5)*1
 ##'     		  v6 ~ c(I6,I6)*1
 ##'     		"
-##' 
-##' cc1 <-  tryCatch(readRDS(system.file("cfa/cc1X.rds", package = "semTable")),
+##'
+##' ## Reload saved models if available: avoids slow re-estimation that bothers CRAN
+##' cc1 <-  tryCatch(readRDS(system.file("cfa/cc1.rds", package = "semTable")),
 ##'                  error = function(e) cfa(cc1.model, data=dat, group="group",
 ##'                                          meanstructure=TRUE, estimator = "MLR"))
-##' cc2 <- tryCatch(readRDS(system.file("cfa/cc2X.rds", package = "semTable")),
+##' cc2 <- tryCatch(readRDS(system.file("cfa/cc2.rds", package = "semTable")),
 ##'                 error = function(e) cfa(cc2.model, data=dat, group="group",
 ##'                                         meanstructure=TRUE, estimator = "MLR"))
-##' cc3 <- tryCatch(readRDS(system.file("cfa/cc3X.rds", package = "semTable")),
+##' cc3 <- tryCatch(readRDS(system.file("cfa/cc3.rds", package = "semTable")),
 ##'                  error = function(e) cfa(cc3.model, data=dat, group="group",
 ##'                                          meanstructure=TRUE, estimator = "MLR"))
-##' cc4 <- tryCatch(readRDS(system.file("cfa/cc4X.rds", package = "semTable")),
+##' cc4 <- tryCatch(readRDS(system.file("cfa/cc4.rds", package = "semTable")),
 ##'                 error = function(e) cfa(cc4.model, data=dat, group="group",
 ##'                                         meanstructure=TRUE, estimator = "MLR"))
 ##' 
