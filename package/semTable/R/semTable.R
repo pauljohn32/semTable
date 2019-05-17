@@ -246,7 +246,7 @@ semTable <- function(object, file = NULL, paramSets = "all", paramSetLabels,
 
     ## relabel the "paramType" column in a parTable data frame
     ##
-    ## Re-lable the "paramType", the parameterSet indicator for each
+    ## Re-label the "paramType", the parameterSet indicator for each
     ## row in a parTable. Identifies "residualvariances",
     ## "residualcovariances", "latentvariances" "latentcovariances",
     ## "intercepts" and "latentmeans"
@@ -255,7 +255,8 @@ semTable <- function(object, file = NULL, paramSets = "all", paramSetLabels,
     ## @return 
     ## @author Paul Johnson
     insertParamTypes <- function(parameters){
-        paramops <- c("=~" = "loadings", "~" = "slopes", "~1" = "means",
+        paramops <- c("=~" = "loadings", "<~" = "loadings",
+                      "~" = "slopes", "~1" = "means",
                       "~~" = "variances", "|" = "thresholds",
                       ":=" = "constructed", "==" = "constraints")
 
