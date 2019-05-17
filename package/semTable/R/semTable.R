@@ -10,6 +10,7 @@
 ##' we can find in the fitted model are presented.  Otherwise, a subset
 ##' of parameter sets can be chosen by the user.
 ##' \itemize{
+##' \item "composites" are predictor coefficients in formative constructs
 ##' \item "loadings" are the factor loadings in the model.
 ##' \item "slopes" are the regression slopes in the model.
 ##' \item "intercepts" are the estimated constants in the measurement
@@ -39,19 +40,20 @@
 ##'     side.
 ##' @param paramSets Parameter sets to be included for each fitted
 ##'     object.  Valid values of the vector are \code{"all"} or a any
-##'     of the following: \code{c("loadings", "slopes", "intercepts",
-##'     "residualvariances", "residualcovariances", "latentmeans",
-##'     "latentvariances", "latentcovariances", "thresholds",
-##'     "constructed", "fits")}. Default is "all", any of the
-##'     estimates present in the fitted model that are listed in the
-##'     previous sentence will be included in the output. For the sake
-##'     of simplicity, we now allow one vector here, which applies to
-##'     all models in the object list.
+##'     of the following: \code{c("composites", "loadings", "slopes",
+##'     "intercepts", "residualvariances", "residualcovariances",
+##'     "latentmeans", "latentvariances", "latentcovariances",
+##'     "thresholds", "constructed", "fits")}. Default is "all", any
+##'     of the estimates present in the fitted model that are listed
+##'     in the previous sentence will be included in the output. For
+##'     the sake of simplicity, we now allow one vector here, which
+##'     applies to all models in the object list.
 ##' @param paramSetLabels Named vector, used to supply alternative
 ##'     pretty printing labels for parameter sets. The default values
-##'     are \code{c("loadings"= "Factor Loadings", "slopes" =
-##'     "Regression Slopes", "intercepts" = "Intercepts", "means"=
-##'     "Means", "residualvariances" = "Residual Variances",
+##'     are \code{c("composites" = "Composites",
+##'     "loadings"= "Factor Loadings", "slopes" = "Regression Slopes",
+##'     "intercepts" = "Intercepts", "means"= "Means",
+##'     "residualvariances" = "Residual Variances",
 ##'     "residualcovariances" = "Residual Covariances", "variances" =
 ##'     "Variances", "latentvariances" = "Latent Variances",
 ##'     "latentcovariances" = "Latent Covariances", "latentmeans" =
@@ -255,7 +257,7 @@ semTable <- function(object, file = NULL, paramSets = "all", paramSetLabels,
     ## @return 
     ## @author Paul Johnson
     insertParamTypes <- function(parameters){
-        paramops <- c("=~" = "loadings", "<~" = "loadings",
+        paramops <- c("=~" = "loadings", "<~" = "composites",
                       "~" = "slopes", "~1" = "means",
                       "~~" = "variances", "|" = "thresholds",
                       ":=" = "constructed", "==" = "constraints")
@@ -400,7 +402,7 @@ semTable <- function(object, file = NULL, paramSets = "all", paramSetLabels,
         blocktitle
     }
 
-    ##works for paramSets = "loadings" or "slopes"
+    ##works for paramSets = "composites", "loadings" or "slopes"
     loadingMaker <- function(parameters, paramType = "loadings", colLabels, modelName) {
         report <- names(colLabels[[modelName]])
         totalNcolumns <- min(9,  length(unname(unlist(colLabels))))
@@ -557,12 +559,14 @@ semTable <- function(object, file = NULL, paramSets = "all", paramSetLabels,
         ## Still must treat loadings and slopes differently
         reslt <- list()
         for(jj in names(paramTableSplit)){
-            if (jj %in% c("loadings", "slopes")){
+            if (jj %in% c("composites", "loadings", "slopes")){
                 
                 info <- loadingMaker(paramTableSplit[[jj]], paramType = jj,
                                      colLabels, modelName)
                 if (!is.null(info)){
-                    attr(info, "blocktitle") <- makeSubtableTitle(paramSetLabels["loadings"],
+                    ## 20190517: following looks like error, why fixed at "loadings"
+                    ## attr(info, "blocktitle") <- makeSubtableTitle(paramSetLabels["loadings"],
+                    attr(info, "blocktitle") <- makeSubtableTitle(paramSetLabels[jj],
                                                                   colnum = 2,
                                                                   width = length(report))
                     class(info) <- c("trowsList", class(info))
@@ -665,7 +669,7 @@ semTable <- function(object, file = NULL, paramSets = "all", paramSetLabels,
             tablList <- lapply(paramList, function(x) x[[jj]])
             ## treat loadings and slopes differently because they are
             ## lists of tables
-            if(jj %in% c("loadings", "slopes")){
+            if(jj %in% c("composites", "loadings", "slopes")){
                 ## get the varnames
                 varnames <- unique(unlist(lapply(tablList, names)))
                 hh <- list()
@@ -766,6 +770,7 @@ semTable <- function(object, file = NULL, paramSets = "all", paramSetLabels,
     
     ## paramSetLabels default.
     paramx <- c("loadings" = "Factor Loadings",
+                "composites" = "Composites", 
                 "slopes" = "Regression Slopes",
                 "intercepts" = "Intercepts",
                 "means" = "Means",
