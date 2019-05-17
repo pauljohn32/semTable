@@ -6,8 +6,8 @@ Date: 2019-05-17
 Authors@R: c(person("Paul","Johnson",email="pauljohn@ku.edu",role = c("aut", "cre")),
 		   person("Benjamin","Kite",email="bakite@ku.edu",role="aut"))
 Maintainer: Paul Johnson <pauljohn@ku.edu>
-Description: For confirmatory factor analysis (CFA) and structural equation
-             models (SEM) estimated with the 'lavaan' package,
+Description: For confirmatory factor analysis ('CFA') and structural equation
+             models ('SEM') estimated with the 'lavaan' package,
              this package provides functions to create model summary tables and model
              comparison tables for hypothesis testing. Tables can be produced in
              'LaTeX', 'HTML', or comma separated variables ('CSV'). 
