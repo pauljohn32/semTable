@@ -495,7 +495,11 @@ semTable <- function(object, file = NULL, paramSets = "all", paramSetLabels,
         ## "Scaled chisq"
         nOfTests <- length(object@Fit@test)
         chimeas <- object@Fit@test[[nOfTests]]
-        if (nOfTests > 1) newdf[1 , "col1"] <- "Scaled _CHI2_"
+        ## address problem that similar named rows "chisq" were confused.
+        if (nOfTests > 1){
+            newdf[1 , "col1"] <- "Scaled _CHI2_"
+            rownames(newdf)[1] <- "chisqscaled"
+        }
         chimeas$stat <- frnd(chimeas$stat)
         chimeas$pvalue <- frnd(chimeas$pvalue, 3,  3)
         chimeas$pvalue <- gsub("0\\.", "\\.", chimeas$pvalue)
