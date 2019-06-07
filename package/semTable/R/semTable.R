@@ -497,8 +497,9 @@ semTable <- function(object, file = NULL, paramSets = "all", paramSetLabels,
         chimeas <- object@Fit@test[[nOfTests]]
         ## address problem that similar named rows "chisq" were confused.
         if (nOfTests > 1){
+            rname <- "chisqscaled"
             newdf[1 , "col1"] <- "Scaled _CHI2_"
-            rownames(newdf)[1] <- "chisqscaled"
+            rownames(newdf)[1] <- rname
         }
         chimeas$stat <- frnd(chimeas$stat)
         chimeas$pvalue <- frnd(chimeas$pvalue, 3,  3)
@@ -606,7 +607,8 @@ semTable <- function(object, file = NULL, paramSets = "all", paramSetLabels,
         ## chisq is a special presentation, comes back as a one row data frame
         if ("chisq" %in% names(fitmeas)){
             yy <- getChiSq(object, report)["chisq", ]
-            info["chisq", ] <- yy
+            rname <- rownames(yy)[1]
+            info[rname, ] <- yy
         }
         
         attr(info, "blocktitle") <- makeSubtableTitle(paramSetLabels["fits"],
