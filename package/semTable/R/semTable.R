@@ -465,13 +465,12 @@ semTable <- function(object, file = NULL, paramSets = "all", paramSetLabels,
         } else if (paramType == "residualvariances"){
             rownames(trows) <- paste(paramType, trows[ , "lhs"], sep = ".")
             trows$col1 <- varlabslhs
-        } else if (paramType == "residualcovariances"){
+        } else if (paramType %in% c("variances", "latentcovariances",  "residualcovariances")){
             trows$col1 <- paste0(varlabslhs, " w/", varlabsrhs)
             rownames(trows) <- paste(paramType, trows[ , "lhs"], trows[ , "rhs"],  sep = ".")
-        } else if (paramType == "latentcovariances"){
-            trows$col1 <- paste0(varlabslhs, " w/", varlabsrhs)
-            rownames(trows) <- paste0(paramType, ".", trows[ , "lhs"],
-                           ".", trows[ , "rhs"])
+        ## } else if (paramType == "latentcovariances"){
+        ##     trows$col1 <- paste0(varlabslhs, " w/", varlabsrhs)
+        ##     rownames(trows) <- paste0(paramType, ".", trows[ , "lhs"], ".", trows[ , "rhs"])
         } else {
             trows$col1 <- varlabslhs
             rownames(trows) <- paste(paramType, trows[ , "lhs"], sep = ".")
